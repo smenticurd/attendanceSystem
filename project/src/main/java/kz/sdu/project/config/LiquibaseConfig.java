@@ -7,9 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 
-/***
- * TODO : настроить конфигурацию Liquibase
- */
+
 @Configuration
 public class LiquibaseConfig {
     @Value("${spring.datasource.url}")
