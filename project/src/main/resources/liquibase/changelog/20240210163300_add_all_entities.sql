@@ -56,12 +56,21 @@ CREATE TABLE person_info (
                              person_info_id serial PRIMARY KEY,
                              person_id INT NOT NULL,
                              gender VARCHAR(255) NOT NULL ,
+<<<<<<< HEAD
                              image bytea ,
                              telephone VARCHAR(255)NOT NULL ,
                              birth_date DATE NOT NULL ,
                              specialty_id INT,
                              FOREIGN KEY (person_id) REFERENCES person(id),
                              FOREIGN KEY (specialty_id) REFERENCES specialty(specialty_id)
+=======
+                             image TEXT,
+                             telephone VARCHAR(255)NOT NULL ,
+                             birth_date DATE NOT NULL ,
+                             speciality_id INT,
+                             FOREIGN KEY (person_id) REFERENCES person(id),
+                             FOREIGN KEY (speciality_id) REFERENCES specialty(specialty_id)
+>>>>>>> master
 );
 CREATE TABLE class_room (
                              class_room_id serial PRIMARY KEY,
@@ -88,7 +97,11 @@ CREATE TABLE schedule (
                           section_id INT,
                           class_room_id INT,
                           day_of_week INT NOT NULL,
+<<<<<<< HEAD
                           start_time TIME,
+=======
+                          start_time VARCHAR(255),
+>>>>>>> master
                           total_hours INT,
                           FOREIGN KEY (section_id) REFERENCES section(section_id),
                           FOREIGN KEY (class_room_id) REFERENCES class_room(class_room_id)
@@ -111,11 +124,19 @@ CREATE TABLE reason_for_absence (
 -- 11. Attendance Record
 CREATE TABLE attendance_record (
                                    record_id serial PRIMARY KEY,
+<<<<<<< HEAD
                                    student_id INT,
                                    schedule_id INT,
                                    total_seating_hours INT,
                                    current_week INT,
                                    FOREIGN KEY (student_id) REFERENCES person(id),
+=======
+                                   person_id INT,
+                                   schedule_id INT,
+                                   total_seating_hours INT,
+                                   current_week INT,
+                                   FOREIGN KEY (person) REFERENCES person(id),
+>>>>>>> master
                                    FOREIGN KEY (schedule_id) REFERENCES schedule(schedule_id)
 );
 
@@ -126,7 +147,11 @@ CREATE TABLE Attendance_info (
                                  attendance_info_id serial PRIMARY KEY,
                                  person_id INT,
                                  record_type VARCHAR(255) NOT NULL,
+<<<<<<< HEAD
                                  percent DECIMAL(5, 2) NOT NULL,
+=======
+                                 percent INT NOT NULL,
+>>>>>>> master
                                  section_id INT NOT NULL,
                                  FOREIGN KEY (person_id) REFERENCES person(id),
                                  FOREIGN KEY (section_id) REFERENCES section(section_id)
