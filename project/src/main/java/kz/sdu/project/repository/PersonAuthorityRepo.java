@@ -9,7 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface PersonAuthorityRepo extends JpaRepository<PersonAuthority, Integer> {
-
     @Query("select p from PersonAuthority p where p.person_person_auth.id = ?1")
     Optional<PersonAuthority> findByPersonId(Integer personId);
 }

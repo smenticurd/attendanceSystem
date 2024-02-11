@@ -9,8 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface PersonRepo extends JpaRepository<Person, Integer> {
-    @Query("select p from Person p where p.id = ?1")
-    Optional<Person> findById(Integer id);
     Optional<Person> findByLogin(String login);
-
 }
