@@ -20,7 +20,6 @@ public class SectionService {
 
     public Section findByName(String name) {
         Optional<Section> section = sectionRepo.findByName(name);
-
         return section.orElse(null);
     }
 

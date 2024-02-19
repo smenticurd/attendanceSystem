@@ -27,6 +27,10 @@ public class AttendanceRecordService {
         return attendanceRecordRepo.findAll();
     }
 
+    public List<AttendanceRecord> findByPersonIdAndScheduleId(Integer id, Integer id2) {
+        return attendanceRecordRepo.findByPersonIdAndScheduleId(id, id2);
+    }
+
     public void save(AttendanceRecord attendanceRecord) {
         attendanceRecordRepo.save(attendanceRecord);
     }

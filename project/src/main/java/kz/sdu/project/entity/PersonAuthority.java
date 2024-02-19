@@ -19,10 +19,10 @@ public class PersonAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(
-            name = "id",
+            name = "person_authority_id",
             updatable = false
     )
-    private Integer id;
+    private Integer person_authority_id;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "last_login")
@@ -55,6 +55,7 @@ public class PersonAuthority {
     @JoinColumn(name = "person_id", referencedColumnName = "id")
     private Person person_person_auth;
 
+
     @OneToOne
     @JoinColumn(name = "user_role_id", referencedColumnName = "role_id")
     private Role role_person_auth;
@@ -64,18 +65,18 @@ public class PersonAuthority {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PersonAuthority that = (PersonAuthority) o;
-        return Objects.equals(id, that.id);
+        return Objects.equals(person_authority_id, that.person_authority_id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(person_authority_id);
     }
 
     @Override
     public String toString() {
         return "PersonAuthority{" +
-                "id=" + id +
+                "id=" + person_authority_id +
                 ", last_login=" + last_login +
                 ", password_hash='" + password_hash + '\'' +
                 ", active=" + active +

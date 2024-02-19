@@ -8,6 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface SpecialityRepo extends JpaRepository<Specialty, Integer> {
-
     Optional<Specialty> findByCode(String code);
 }
