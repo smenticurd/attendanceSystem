@@ -14,26 +14,27 @@ import java.util.Objects;
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 public class PersonAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(
-            name = "id",
+            name = "person_authority_id",
             updatable = false
     )
     private Integer id;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "last_login")
-    private LocalDate last_login;
+    private LocalDate lastLogin;
 
     @Column(
             name = "password_hash",
             nullable = false,
             columnDefinition = "TEXT"
     )
-    private String password_hash;
+    private String passwordHash;
 
     @Column(
             name = "active",
@@ -43,7 +44,7 @@ public class PersonAuthority {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "password_refresh_date")
-    private LocalDate password_refresh_date;
+    private LocalDate passwordRefreshDate;
 
     @Column(
             name = "isRefreshed",
@@ -53,37 +54,10 @@ public class PersonAuthority {
 
     @OneToOne
     @JoinColumn(name = "person_id", referencedColumnName = "id")
-    private Person person_person_auth;
+    private Person person;
+
 
     @OneToOne
     @JoinColumn(name = "user_role_id", referencedColumnName = "role_id")
-    private Role role_person_auth;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        PersonAuthority that = (PersonAuthority) o;
-        return Objects.equals(id, that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
-    @Override
-    public String toString() {
-        return "PersonAuthority{" +
-                "id=" + id +
-                ", last_login=" + last_login +
-                ", password_hash='" + password_hash + '\'' +
-                ", active=" + active +
-                ", password_refresh_date=" + password_refresh_date +
-                ", isRefreshed=" + isRefreshed +
-                '}';
-    }
-
-
-
+    private Role userRole;
 }

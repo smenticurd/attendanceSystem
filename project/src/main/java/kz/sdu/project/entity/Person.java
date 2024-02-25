@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -46,35 +47,40 @@ public class Person {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     @JsonManagedReference
-    private Set<Role> role_person;
+    private Set<Role> RolePerson;
 
-    @OneToOne(mappedBy = "person_person_auth", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
     @JsonBackReference
     private PersonAuthority personAuthority;
 
-    @OneToOne(mappedBy = "person_person_info", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
     @JsonBackReference
     private PersonInfo personInfo;
 
-    @OneToOne(mappedBy = "person_section", cascade = CascadeType.ALL)
-    @JsonBackReference
-    private Section section;
+    @OneToMany(mappedBy = "person_reason_for_absence", cascade = CascadeType.ALL)
+    private Set<ReasonForAbsence> reasonsForAbsence;
 
-    @OneToOne(mappedBy = "person_reason_for_absence", cascade = CascadeType.ALL)
-    @JsonBackReference
-    private ReasonForAbsence reasonForAbsence;
+    @OneToMany(mappedBy = "person_att_record", cascade = CascadeType.ALL)
+    private Set<AttendanceRecord> attendanceRecords;
 
-    @OneToOne(mappedBy = "person_att_record", cascade = CascadeType.ALL)
-    @JsonBackReference
-    private AttendanceRecord attendanceRecord;
+    @OneToMany(mappedBy = "person_attendanceInfo", cascade = CascadeType.ALL)
+    private Set<AttendanceInfo> attendanceInfos;
 
-    @OneToOne(mappedBy = "person_att_info", cascade = CascadeType.ALL)
+    @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JsonBackReference
-    private AttendanceInfo attendanceInfo;
+    @JoinTable(
+            name = "person_role",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
 
-    @OneToOne(mappedBy = "person_course", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "persons", cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JsonBackReference
-    private Course course;
+    private Set<Section> sections = new HashSet<>();
+
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<CheckInForSession> checkInsForSession = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {
@@ -98,10 +104,8 @@ public class Person {
                 ", middleName='" + middleName + '\'' +
                 ", login='" + login + '\'' +
                 ", email='" + email + '\'' +
-                // Roles, personAuthority, personInfo, and other relations are omitted to prevent excessive verbosity and potential recursion
                 '}';
     }
-
 
 
 }

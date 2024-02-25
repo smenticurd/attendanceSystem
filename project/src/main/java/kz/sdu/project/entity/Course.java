@@ -1,10 +1,12 @@
 package kz.sdu.project.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "course")
@@ -32,17 +34,15 @@ public class Course {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @OneToOne
-    @JoinColumn(name = "person_id", referencedColumnName = "id")
-    private Person person_course;
-
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "speciality_id", referencedColumnName = "specialty_id")
+    @JsonBackReference
     private Specialty specialty_course;
 
-    @OneToOne(mappedBy = "course_section", cascade = CascadeType.ALL)
-    @JsonBackReference
-    private Section section;
+
+    @OneToMany(mappedBy = "course_section", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private Set<Section> sections;
 
     @Override
     public boolean equals(Object o) {
@@ -64,7 +64,6 @@ public class Course {
                 ", code='" + code + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", person_course=" + (person_course != null ? person_course.getId() : "null") +
                 ", specialty_course=" + (specialty_course != null ? specialty_course.getSpecialty_id() : "null") +
                 '}';
     }

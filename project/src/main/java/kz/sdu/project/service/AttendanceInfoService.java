@@ -27,6 +27,12 @@ public class AttendanceInfoService {
         return attendanceInfoRepo.findAll();
     }
 
+    public List<AttendanceInfo> findAllByPersonLogin(String login) {
+        return attendanceInfoRepo.findAllByPersonLogin(login);
+    }
+
+
+
     public void save(AttendanceInfo attendanceInfo) {
          attendanceInfoRepo.save(attendanceInfo);
     }

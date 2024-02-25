@@ -3,6 +3,7 @@ package kz.sdu.project.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "attendance_info")
@@ -18,44 +19,43 @@ public class AttendanceInfo {
     @Column(name = "attendance_info_id")
     private Integer attendance_info_id;
 
-
-    @Column(name = "record_type", nullable = false)
-    private String recordType;
-
     @Column(name = "percent", nullable = false)
     private Integer percent;
 
-    @OneToOne
-    @JoinColumn(name = "person_id", referencedColumnName = "id")
-    private Person person_att_info;
+    @Column(name = "full_time", nullable = false)
+    private Integer full_time;
 
-    @OneToOne
+    @Column(name = "reason_time", nullable = false)
+    private Integer reason_time;
+
+    @ManyToOne
+    @JoinColumn(name = "person_id", referencedColumnName = "id")
+    private Person person_attendanceInfo;
+
+    @ManyToOne
     @JoinColumn(name = "section_id", referencedColumnName = "section_id")
     private Section section_att_info;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (!(o instanceof AttendanceInfo)) return false;
         AttendanceInfo that = (AttendanceInfo) o;
-
-        return attendance_info_id != null ? attendance_info_id.equals(that.attendance_info_id) : that.attendance_info_id == null;
+        return Objects.equals(attendance_info_id, that.attendance_info_id);
     }
 
     @Override
     public int hashCode() {
-        return attendance_info_id != null ? attendance_info_id.hashCode() : 0;
+        return Objects.hash(attendance_info_id);
     }
 
     @Override
     public String toString() {
         return "AttendanceInfo{" +
-                "attendance_info_id=" + attendance_info_id +
-                ", recordType='" + recordType + '\'' +
+                "attendanceInfoId=" + attendance_info_id +
                 ", percent=" + percent +
-                ", person_att_info=" + (person_att_info != null ? person_att_info.getId() : "null") +
-                ", section_att_info=" + (section_att_info != null ? section_att_info.getSectionId() : "null") +
+                ", fullTime=" + full_time +
+                ", reasonTime=" + reason_time +
                 '}';
     }
 

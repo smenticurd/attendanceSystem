@@ -2,8 +2,10 @@ package kz.sdu.project.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "class_room")
@@ -29,9 +31,9 @@ public class ClassRoom {
     )
     private String room_number;
 
-    @OneToOne(mappedBy = "classRoom_schedule", cascade = CascadeType.ALL)
-    @JsonBackReference
-    private Schedule schedule;
+    @OneToMany(mappedBy = "classRoom_schedule", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private Set<Schedule> schedules;
 
     @Override
     public boolean equals(Object o) {

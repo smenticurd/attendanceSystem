@@ -16,22 +16,32 @@ public class AttendanceRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "record_id")
-    private Long recordId;
+    private Integer recordId;
 
 
-    @Column(name = "total_seating_hours")
-    private Integer totalSeatingHours;
+    @Column(name = "total_present_hours")
+    private Integer total_present_hours;
+
+    @Column(name = "total_hours")
+    private Integer total_hours;
 
     @Column(name = "current_week")
     private Integer currentWeek;
 
-    @OneToOne
-    @JoinColumn(name = "student_id", referencedColumnName = "id")
+    @Column(name = "record_type")
+    private String record_type;
+
+    @Column(name = "is_with_reason")
+    private Boolean is_with_reason;
+
+    @ManyToOne
+    @JoinColumn(name = "person_id", referencedColumnName = "id")
     private Person person_att_record;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "schedule_id", referencedColumnName = "schedule_id")
     private Schedule schedule_att_record;
+
 
     @Override
     public boolean equals(Object o) {
@@ -52,11 +62,13 @@ public class AttendanceRecord {
     public String toString() {
         return "AttendanceRecord{" +
                 "recordId=" + recordId +
-                ", totalSeatingHours=" + totalSeatingHours +
+                ", total_present_hours=" + total_present_hours +
+                ", total_hours=" + total_hours +
                 ", currentWeek=" + currentWeek +
+                ", record_type='" + record_type + '\'' +
+                ", is_with_reason=" + is_with_reason +
                 ", person_att_record=" + (person_att_record != null ? person_att_record.getId() : "null") +
                 ", schedule_att_record=" + (schedule_att_record != null ? schedule_att_record.getScheduleId() : "null") +
                 '}';
     }
-
 }

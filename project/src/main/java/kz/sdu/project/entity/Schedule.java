@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "schedule")
@@ -35,13 +37,18 @@ public class Schedule{
     @JoinColumn(name = "section_id", referencedColumnName = "section_id")
     private Section section_schedule;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "class_room_id", referencedColumnName = "class_room_id")
     private ClassRoom classRoom_schedule;
 
-    @OneToOne(mappedBy = "schedule_att_record", cascade = CascadeType.ALL)
-    @JsonBackReference
-    private AttendanceRecord attendanceRecord;
+    @OneToMany(mappedBy = "schedule_att_record", cascade = CascadeType.ALL)
+    private Set<AttendanceRecord> attendanceRecords;
+
+    @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<SecretCodeForCheckIn> secretCodesForCheckIn;
+
+    @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<CheckInForSession> checkInsForSession = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {
