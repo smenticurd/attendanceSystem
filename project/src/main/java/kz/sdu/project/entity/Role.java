@@ -31,11 +31,11 @@ public class Role {
     @Column(name = "description")
     private String description;
 
-    @ManyToMany(mappedBy = "role_person")
+    @ManyToMany(mappedBy = "roles")
     @JsonBackReference
     private Set<Person> persons;
 
-    @OneToOne(mappedBy = "role_person_auth", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
     @JsonBackReference
     private PersonAuthority personAuthority;
 

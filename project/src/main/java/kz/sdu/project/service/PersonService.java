@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import kz.sdu.project.entity.Person;
 import kz.sdu.project.repository.PersonRepo;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,9 +24,14 @@ public class PersonService {
         return result.orElse(null);
     }
 
+    @Transactional
     public Person findByLogin(String login) {
         Optional<Person> result = personRepo.findByLogin(login);
         return result.orElse(null);
+    }
+
+    public Optional<Person> findByEmail(String email) {
+        return personRepo.findPersonByEmail(email);
     }
 
     public List<Person> findAll() {

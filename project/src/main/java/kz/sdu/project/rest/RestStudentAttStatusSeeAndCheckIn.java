@@ -13,9 +13,11 @@ import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/student/attStatus")
+@RequestMapping("/api2/student/attStatus")
+@AllArgsConstructor
 public class RestStudentAttStatusSeeAndCheckIn {
 
     // Инициализация сервисов
@@ -26,13 +28,6 @@ public class RestStudentAttStatusSeeAndCheckIn {
     // Константы
     private static final String START_DATE_FOR_SEMESTER = "22.01.2024";
 
-    @Autowired
-    public RestStudentAttStatusSeeAndCheckIn(AttendanceInfoService attendanceInfoService, PersonService personService, AttendanceRecordService attendanceRecordService) {
-        this.attendanceInfoService = attendanceInfoService;
-        this.personService = personService;
-        this.attendanceRecordService = attendanceRecordService;
-    }
-
     /**
      * Получает общую информацию о посещаемости студента по всем курсам.
      * Метод возвращает список статусов посещаемости для каждого курса, на который зарегистрирован студент,
@@ -41,7 +36,10 @@ public class RestStudentAttStatusSeeAndCheckIn {
      * @param inRequestBody Тело запроса, содержащее логин студента.
      * @return ResponseEntity с списком статусов посещаемости по всем курсам.
      */
-    @PostMapping()
+    // TODO : переделать адреса
+    // TODO : снести всю логику с rest и перенапралять все в service как в authResource
+    // TODO : убрать inner classes from rest and add it to dto package, but not like inner class
+    @PostMapping("/test")
     public ResponseEntity<List<AttStatus>> allCoursesAttendance(@RequestBody @Valid InRequestBody inRequestBody) {
 
         String login = inRequestBody.getLogin();
@@ -51,7 +49,8 @@ public class RestStudentAttStatusSeeAndCheckIn {
             return ResponseEntity.notFound().build();
         }
 
-        List<Section> sectionList = person.getSections().stream().toList();
+        // List<Section> sectionList = person.getSections().stream().toList();
+        List<Section> sectionList = new ArrayList<>();
         Map<String, AttStatus> attStatusMap = new HashMap<>();
 
         for (Section section : sectionList) {
@@ -87,7 +86,8 @@ public class RestStudentAttStatusSeeAndCheckIn {
             }
         }
 
-        return ResponseEntity.ok().body(attStatusMap.values().stream().toList());
+        // return ResponseEntity.ok().body(attStatusMap.values().stream().toList());
+        return null;
     }
 
     /**
@@ -110,7 +110,7 @@ public class RestStudentAttStatusSeeAndCheckIn {
         }
 
         List<Section> sections = person.getSections().stream()
-                .filter(x -> x.getCourse_section().getCode().equals(codeCourse)).toList();
+                .filter(x -> x.getCourse_section().getCode().equals(codeCourse)).collect(Collectors.toList());
         Map<PreAttStatusLPNInfo, List<AttStatusLPN>> attStatusLPNMap = new HashMap<>();
 
         for (Section section : sections) {
@@ -196,7 +196,7 @@ public class RestStudentAttStatusSeeAndCheckIn {
      * Проверяет, является ли указанный человек преподавателем, основываясь на его ролях в системе.
      */
     private boolean checkIfPersonIsTeacher(Person x) {
-        return x.getRole_person().stream().anyMatch(y ->
+        return x.getRolePerson().stream().anyMatch(y ->
                 y.getRole().equals("TEACHER_ROLE"));
     }
 

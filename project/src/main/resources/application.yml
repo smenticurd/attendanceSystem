@@ -3,3 +3,5 @@ spring:
     username: admin
     password: 123456
     url: jdbc:postgresql://localhost:5432/postgres
+  jwt:
+    secret: secret
