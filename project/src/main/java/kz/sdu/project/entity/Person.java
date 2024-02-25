@@ -47,13 +47,13 @@ public class Person {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     @JsonManagedReference
-    private Set<Role> role_person;
+    private Set<Role> RolePerson;
 
-    @OneToOne(mappedBy = "person_person_auth", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
     @JsonBackReference
     private PersonAuthority personAuthority;
 
-    @OneToOne(mappedBy = "person_person_info", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
     @JsonBackReference
     private PersonInfo personInfo;
 
@@ -66,6 +66,14 @@ public class Person {
     @OneToMany(mappedBy = "person_attendanceInfo", cascade = CascadeType.ALL)
     private Set<AttendanceInfo> attendanceInfos;
 
+    @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+    @JsonBackReference
+    @JoinTable(
+            name = "person_role",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
 
     @ManyToMany(mappedBy = "persons", cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JsonBackReference

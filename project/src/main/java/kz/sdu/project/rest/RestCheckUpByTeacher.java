@@ -161,7 +161,7 @@ public class RestCheckUpByTeacher {
      * Проверяет, является ли указанный человек преподавателем, основываясь на его ролях.
      */
     private boolean checkIfPersonIsTeacher(Person x) {
-        return x.getRole_person().stream().anyMatch(y ->
+        return x.getRolePerson().stream().anyMatch(y ->
                 y.getRole().equals("TEACHER_ROLE"));
     }
 

@@ -36,7 +36,7 @@ public class PersonInfo {
 
     @OneToOne
     @JoinColumn(name = "person_id", referencedColumnName = "id")
-    private Person person_person_info;
+    private Person person;
 
     @OneToOne
     @JoinColumn(name = "speciality_id", referencedColumnName = "specialty_id")

@@ -24,14 +24,6 @@ CREATE TABLE person_role (
                              FOREIGN KEY (role_id) REFERENCES role(role_id)
 );
 
--- 4. Section Person
-CREATE TABLE section_person (
-                                section_id INTEGER NOT NULL,
-                                person_id INTEGER NOT NULL,
-                                PRIMARY KEY (section_id, person_id),
-                                FOREIGN KEY (section_id) REFERENCES section(section_id),
-                                FOREIGN KEY (person_id) REFERENCES person(id)
-);
 
 -- 5. Person Authority
 CREATE TABLE person_authority (
@@ -165,4 +157,12 @@ CREATE TABLE Check_in_for_Session (
                                       get_passed timestamp NOT NULL,
                                       FOREIGN KEY (schedule_id) REFERENCES schedule(schedule_id),
                                       FOREIGN KEY (person_id) REFERENCES person(id)
+);
+-- 4. Section Person
+CREATE TABLE section_person (
+                                section_id INTEGER NOT NULL,
+                                person_id INTEGER NOT NULL,
+                                PRIMARY KEY (section_id, person_id),
+                                FOREIGN KEY (section_id) REFERENCES section(section_id),
+                                FOREIGN KEY (person_id) REFERENCES person(id)
 );
