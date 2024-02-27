@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import kz.sdu.project.entity.PersonInfo;
 import kz.sdu.project.repository.PersonInfoRepo;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,5 +45,28 @@ public class PersonInfoService {
 
     public void deleteById(Integer id) {
         personInfoRepo.deleteById(id);
+    }
+
+    public String uploadUserImage(Integer userId, MultipartFile imageFile) throws IOException {
+        Optional<PersonInfo> personInfoOptional = personInfoRepo.findById(userId);
+        if (personInfoOptional.isEmpty()) {
+            throw new IllegalStateException("PersonInfo with ID " + userId + " does not exist.");
+        }
+
+        PersonInfo personInfo = personInfoOptional.get();
+        byte[] imageBytes = imageFile.getBytes();
+        personInfo.setImage(imageBytes);
+        personInfoRepo.save(personInfo);
+
+        return "Image uploaded successfully for PersonInfo with ID " + userId;
+    }
+
+    public byte[] getUserImage(Integer userId) {
+        Optional<PersonInfo> personInfoOptional = personInfoRepo.findById(userId);
+        if (personInfoOptional.isPresent() && personInfoOptional.get().getImage() != null) {
+            return personInfoOptional.get().getImage();
+        } else {
+            throw new IllegalStateException("Image data not found for PersonInfo with ID " + userId);
+        }
     }
 }

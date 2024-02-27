@@ -61,7 +61,7 @@ CREATE TABLE person_info (
                              person_info_id serial PRIMARY KEY,
                              person_id INT NOT NULL,
                              gender VARCHAR(255) NOT NULL,
-                             image TEXT,
+                             image BYTEA,
                              telephone VARCHAR(255) NOT NULL,
                              birth_date DATE NOT NULL,
                              speciality_id INT,
