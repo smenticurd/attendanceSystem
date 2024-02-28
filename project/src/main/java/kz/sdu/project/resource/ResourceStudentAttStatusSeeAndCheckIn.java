@@ -1,4 +1,4 @@
-package kz.sdu.project.rest;
+package kz.sdu.project.resource;
 
 import kz.sdu.project.entity.*;
 import kz.sdu.project.service.*;
@@ -17,8 +17,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api2/student/attStatus")
-@AllArgsConstructor
-public class RestStudentAttStatusSeeAndCheckIn {
+public class ResourceStudentAttStatusSeeAndCheckIn {
 
     // Инициализация сервисов
     private final AttendanceInfoService attendanceInfoService;
@@ -27,6 +26,13 @@ public class RestStudentAttStatusSeeAndCheckIn {
 
     // Константы
     private static final String START_DATE_FOR_SEMESTER = "22.01.2024";
+
+    @Autowired
+    public ResourceStudentAttStatusSeeAndCheckIn(AttendanceInfoService attendanceInfoService, PersonService personService, AttendanceRecordService attendanceRecordService) {
+        this.attendanceInfoService = attendanceInfoService;
+        this.personService = personService;
+        this.attendanceRecordService = attendanceRecordService;
+    }
 
     /**
      * Получает общую информацию о посещаемости студента по всем курсам.

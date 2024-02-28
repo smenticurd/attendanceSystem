@@ -1,4 +1,4 @@
-package kz.sdu.project.rest;
+package kz.sdu.project.resource;
 
 
 import kz.sdu.project.entity.*;
@@ -25,7 +25,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/student/checkIn")
 @Slf4j
-public class RestCheckInByStudent {
+public class ResourceCheckInByStudent {
 
     // Инициализация сервисов
     private final PersonService personService;
@@ -45,7 +45,7 @@ public class RestCheckInByStudent {
 
 
     @Autowired
-    public RestCheckInByStudent(PersonService personService, CheckInForSessionService checkInForSessionService, SectionService sectionService, SecretCodeForCheckInService secretCodeForCheckInService, AttendanceRecordService attendanceRecordService) {
+    public ResourceCheckInByStudent(PersonService personService, CheckInForSessionService checkInForSessionService, SectionService sectionService, SecretCodeForCheckInService secretCodeForCheckInService, AttendanceRecordService attendanceRecordService) {
         this.personService = personService;
         this.checkInForSessionService = checkInForSessionService;
         this.sectionService = sectionService;

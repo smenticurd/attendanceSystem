@@ -1,4 +1,4 @@
-package kz.sdu.project.rest;
+package kz.sdu.project.resource;
 
 import kz.sdu.project.entity.*;
 import kz.sdu.project.service.*;
@@ -24,7 +24,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/teacher/startLesson")
 @Slf4j
-public class RestCheckUpByTeacher {
+public class ResourceCheckUpByTeacher {
 
     // Инициализация сервисов
     private final AttendanceRecordService attendanceRecordService;
@@ -39,7 +39,7 @@ public class RestCheckUpByTeacher {
     private static final Boolean USE_NUMBERS_IN_SECRET_CODE = true;
     private static final String START_DATE_FOR_SEMESTER = "22.01.2024";
     @Autowired
-    public RestCheckUpByTeacher(AttendanceRecordService attendanceRecordService, SectionService sectionService, PersonService personService, AttendanceInfoService attendanceInfoService, SecretCodeForCheckInService secretCodeForCheckInService) {
+    public ResourceCheckUpByTeacher(AttendanceRecordService attendanceRecordService, SectionService sectionService, PersonService personService, AttendanceInfoService attendanceInfoService, SecretCodeForCheckInService secretCodeForCheckInService) {
         this.attendanceRecordService = attendanceRecordService;
         this.sectionService = sectionService;
         this.personService = personService;

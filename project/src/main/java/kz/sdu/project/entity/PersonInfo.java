@@ -1,5 +1,6 @@
 package kz.sdu.project.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -24,8 +25,10 @@ public class PersonInfo {
     @Column(nullable = false)
     private String gender;
 
-    @Column(columnDefinition = "TEXT",name = "image")
-    private String image;
+    @Lob
+    @Column(name = "image", length = 1000)
+    @JsonIgnore
+    private byte[] image;
 
     @Column(nullable = false)
     private String telephone;
