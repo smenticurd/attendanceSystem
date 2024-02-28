@@ -80,7 +80,6 @@ CREATE TABLE section (
                          section_id serial PRIMARY KEY,
                          name VARCHAR(255) NOT NULL,
                          course_id INT,
-                         schedule_id INT,
                          quota INT,
                          count INT,
                          type VARCHAR(255),
