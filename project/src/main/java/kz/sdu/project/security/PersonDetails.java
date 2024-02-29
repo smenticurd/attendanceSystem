@@ -21,9 +21,9 @@ public class PersonDetails implements UserDetails {
     // TODO : fix
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authority = new ArrayList<>();
-        // roles.forEach(role -> {
-        //     authority.add(new SimpleGrantedAuthority(role.getRole()));
-        // });
+//         roles.forEach(role -> {
+//             authority.add(new SimpleGrantedAuthority(role.getRole()));
+//         });
 
         return authority;
     }

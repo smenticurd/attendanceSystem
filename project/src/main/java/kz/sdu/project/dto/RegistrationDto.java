@@ -7,41 +7,36 @@ import javax.validation.constraints.*;
 
 @Getter
 @Setter
-// TODO : описать поля ошибок
 public class RegistrationDto {
     @NotBlank(message = "email must be not blank")
     @Email(message = "Email format is incorrect. Example: user123@mail.ru, user123@yandex.ru, user@gmail.com")
     private String email;
-    @NotNull
-    @NotBlank
-    @NotEmpty
-    @Size(min = 8)
+
+    @NotBlank(message = "Password must not be blank")
+    @Size(min = 8, message = "Password must be at least 8 characters long")
     private String password;
-    @NotNull
-    @NotBlank
-    @NotEmpty
+
+    @NotBlank(message = "Password must not be blank")
     private String firstname;
-    @NotNull
-    @NotBlank
-    @NotEmpty
+
+    @NotBlank(message = "Last name must not be blank")
     private String lastname;
-    @NotNull
-    @NotBlank
-    @NotEmpty
+
+    @NotBlank(message = "Middle name must not be blank")
     private String middlename;
-    @NotNull
-    @NotBlank
-    @NotEmpty
+
+    @NotBlank(message = "Course year must not be blank")
     private String courseYear;
-    @NotNull
+
+    @NotNull(message = "Gender must be specified")
     private Boolean gender;
-    @NotNull
-    @NotBlank
-    @NotEmpty
+
+    @NotBlank(message = "Speciality code must not be blank")
     private String specialityCode;
 
+    @Pattern(regexp = "^(\\+\\d{1,3}[- ]?)?\\d{10}$", message = "Telephone must be a valid phone number")
     private String telephone;
 
+    @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$", message = "Birth date must be in the format yyyy-MM-dd")
     private String birthDate;
-
 }
