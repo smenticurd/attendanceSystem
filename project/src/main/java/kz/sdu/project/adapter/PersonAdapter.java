@@ -5,7 +5,10 @@ import kz.sdu.project.dto.RegistrationDto;
 import kz.sdu.project.entity.Person;
 import kz.sdu.project.entity.PersonAuthority;
 import kz.sdu.project.entity.PersonInfo;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.util.StreamUtils;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -27,7 +30,7 @@ public class PersonAdapter {
         PersonInfo personInfo = new PersonInfo();
         personInfo.setTelephone(registrationDto.getTelephone());
         personInfo.setGender(registrationDto.getGender() ? "WOMEN" : "MEN");
-        // personInfo.setImage(); // TODO : fix it
+        // personInfo.setImage(getDefaultImage());
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         LocalDate localDate = LocalDate.parse(registrationDto.getBirthDate(), dateTimeFormatter);
         personInfo.setBirthDate(localDate);
@@ -58,5 +61,14 @@ public class PersonAdapter {
                 .telephone(person.getPersonInfo().getTelephone())
                 .courseCode(code)
                 .build();
+    }
+
+    private static byte[] getDefaultImage() {
+        try {
+            ClassPathResource imgFile = new ClassPathResource("static_resources/User.jpg");
+            return StreamUtils.copyToByteArray(imgFile.getInputStream());
+        } catch (IOException e) {
+            throw new RuntimeException("Unable to load default image", e);
+        }
     }
 }

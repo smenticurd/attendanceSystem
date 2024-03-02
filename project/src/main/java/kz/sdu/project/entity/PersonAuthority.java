@@ -47,7 +47,7 @@ public class PersonAuthority {
     private LocalDate passwordRefreshDate;
 
     @Column(
-            name = "isRefreshed",
+            name = "isrefreshed",
             nullable = false
     )
     private Boolean isRefreshed;
