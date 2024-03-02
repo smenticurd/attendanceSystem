@@ -25,10 +25,6 @@ public class PersonInfo {
     @Column(nullable = false)
     private String gender;
 
-    @Lob
-    @Column(name = "image", length = 1000)
-    @JsonIgnore
-    private byte[] image;
 
     @Column(nullable = false)
     private String telephone;

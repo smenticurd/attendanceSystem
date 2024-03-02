@@ -54,18 +54,18 @@ public class PersonInfoService {
 
         PersonInfo personInfo = personInfoOptional.get();
         byte[] imageBytes = imageFile.getBytes();
-        personInfo.setImage(imageBytes);
+        // personInfo.setImage(imageBytes);
         personInfoRepo.save(personInfo);
 
         return "Image uploaded successfully for PersonInfo with ID " + userId;
     }
 
-    public byte[] getUserImage(Integer userId) {
-        Optional<PersonInfo> personInfoOptional = personInfoRepo.findById(userId);
-        if (personInfoOptional.isPresent() && personInfoOptional.get().getImage() != null) {
-            return personInfoOptional.get().getImage();
-        } else {
-            throw new IllegalStateException("Image data not found for PersonInfo with ID " + userId);
-        }
-    }
+    // public byte[] getUserImage(Integer userId) {
+    //     Optional<PersonInfo> personInfoOptional = personInfoRepo.findById(userId);
+    //     if (personInfoOptional.isPresent() && personInfoOptional.get().getImage() != null) {
+    //         return personInfoOptional.get().getImage();
+    //     } else {
+    //         throw new IllegalStateException("Image data not found for PersonInfo with ID " + userId);
+    //     }
+    // }
 }
