@@ -31,7 +31,7 @@ public class PersonAdapter {
         personInfo.setTelephone(registrationDto.getTelephone());
         personInfo.setGender(registrationDto.getGender() ? "WOMEN" : "MEN");
         // personInfo.setImage(getDefaultImage());
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate = LocalDate.parse(registrationDto.getBirthDate(), dateTimeFormatter);
         personInfo.setBirthDate(localDate);
 
