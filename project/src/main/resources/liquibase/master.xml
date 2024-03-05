@@ -10,4 +10,6 @@
     <include file="/liquibase/changelog/20240228174000_add_course.sql" relativeToChangelogFile="false"/>
     <include file="/liquibase/changelog/20240228181000_add_section.sql" relativeToChangelogFile="false"/>
     <include file="/liquibase/changelog/20240228181500_add_schedule.sql" relativeToChangelogFile="false"/>
+    <include file="/liquibase/changelog/20240303111500_add_role.sql" relativeToChangelogFile="false"/>
+    <include file="/liquibase/changelog/20240303131500_add_admin.sql" relativeToChangelogFile="false"/>
 </databaseChangeLog>

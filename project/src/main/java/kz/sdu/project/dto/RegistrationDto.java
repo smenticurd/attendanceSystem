@@ -37,6 +37,6 @@ public class RegistrationDto {
     @Pattern(regexp = "^(\\+\\d{1,3}[- ]?)?\\d{10}$", message = "Telephone must be a valid phone number")
     private String telephone;
 
-    // @Pattern(regexp = "^\\d{2}-\\d{2}.$", message = "Birth date must be in the format yyyy-MM-dd")
+    @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$", message = "Birthdate must be in the ISO format: YYYY-MM-DD")
     private String birthDate;
 }

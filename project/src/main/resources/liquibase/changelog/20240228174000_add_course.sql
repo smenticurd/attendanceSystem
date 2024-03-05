@@ -7,4 +7,3 @@ INSERT INTO course (speciality_id, code, name, description) VALUES
 ('01', 'C0103', 'Math Calculus', 'Comprehensive coverage of differential and integral calculus, including applications to engineering problems.'),
 ('01', 'C0104', 'Linear Algebra', 'Study of vector spaces, linear transformations, and matrices with engineering applications.'),
 ('01', 'C0105', 'Data Structures', 'Introduction to data organization, including stacks, queues, linked lists, trees, and graphs.');
-
