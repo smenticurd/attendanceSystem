@@ -50,7 +50,10 @@ public class PersonAdapter {
     public static PersonDto toPersonDto(Person person) {
         PersonInfo personInfo = person.getPersonInfo();
         PersonAuthority personAuthority = person.getPersonAuthority();
-        String code = personInfo.getSpecialty_person_info().getCode();
+        String code = "";
+        if (personInfo.getSpecialty_person_info() != null) {
+            code = personInfo.getSpecialty_person_info().getCode();
+        }
         return PersonDto.builder()
                 .login(person.getLogin())
                 .middlename(person.getMiddleName())
