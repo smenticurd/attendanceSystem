@@ -26,34 +26,32 @@ CREATE TABLE person_role (
 
 
 -- 5. Person Authority
-CREATE TABLE person_authority (
+CREATE TABLE person_auth (
                                   person_authority_id serial PRIMARY KEY,
                                   person_id INT NOT NULL,
                                   last_login date,
                                   password_hash TEXT NOT NULL,
                                   active BOOLEAN NOT NULL,
-                                  user_role_id INT,
                                   password_refresh_date DATE,
                                   isRefreshed BOOLEAN NOT NULL,
-                                  FOREIGN KEY (person_id) REFERENCES person(id),
-                                  FOREIGN KEY (user_role_id) REFERENCES role(role_id)
+                                  FOREIGN KEY (person_id) REFERENCES person(id)
 );
 
 -- 6. Specialty
-CREATE TABLE specialty (
-                           specialty_id serial PRIMARY KEY,
-                           name VARCHAR(255) NOT NULL,
-                           code VARCHAR(50) NOT NULL
+CREATE TABLE speciality (
+                           speciality_id serial PRIMARY KEY,
+                           name VARCHAR(255) NOT NULL UNIQUE,
+                           code VARCHAR(50) NOT NULL UNIQUE
 );
 
 -- 7. Course
 CREATE TABLE course (
                         course_id serial PRIMARY KEY,
                         speciality_id INT,
-                        code VARCHAR(50) NOT NULL,
-                        name VARCHAR(255) NOT NULL,
+                        code VARCHAR(50) NOT NULL UNIQUE,
+                        name VARCHAR(255) NOT NULL UNIQUE,
                         description TEXT,
-                        FOREIGN KEY (speciality_id) REFERENCES specialty(specialty_id)
+                        FOREIGN KEY (speciality_id) REFERENCES speciality(speciality_id)
 );
 
 -- 8. Person Info
@@ -66,7 +64,7 @@ CREATE TABLE person_info (
                              birth_date DATE NOT NULL,
                              speciality_id INT,
                              FOREIGN KEY (person_id) REFERENCES person(id),
-                             FOREIGN KEY (speciality_id) REFERENCES specialty(specialty_id)
+                             FOREIGN KEY (speciality_id) REFERENCES speciality(speciality_id)
 );
 
 -- 9. Class Room
@@ -107,7 +105,7 @@ CREATE TABLE reason_for_absence (
                                     description TEXT,
                                     document TEXT,
                                     status VARCHAR(255),
-                                    isAccepted BOOLEAN,
+                                    is_accepted BOOLEAN,
                                     date_info DATE NOT NULL,
                                     FOREIGN KEY (person_id) REFERENCES person(id),
                                     FOREIGN KEY (section_id) REFERENCES section(section_id)
@@ -128,7 +126,7 @@ CREATE TABLE attendance_record (
 );
 
 -- 14. Attendance Info
-CREATE TABLE Attendance_info (
+CREATE TABLE attendance_info (
                                  attendance_info_id serial PRIMARY KEY,
                                  person_id INT,
                                  percent INT NOT NULL,
@@ -140,7 +138,7 @@ CREATE TABLE Attendance_info (
 );
 
 -- 15. Secret Code for Check-in
-CREATE TABLE Secret_code_for_Check_in (
+CREATE TABLE secret_code_for_check_in (
                                           secret_code_for_Check_in_id serial PRIMARY KEY,
                                           schedule_id INT NOT NULL,
                                           secret_code VARCHAR(255) NOT NULL,
@@ -149,14 +147,15 @@ CREATE TABLE Secret_code_for_Check_in (
 );
 
 -- 16. Check-in for Session
-CREATE TABLE Check_in_for_Session (
-                                      check_in_for_session_id serial PRIMARY KEY,
+CREATE TABLE check_in_for_session (
+                                      check_id serial PRIMARY KEY,
                                       schedule_id INT NOT NULL,
                                       person_id INT NOT NULL,
                                       get_passed timestamp NOT NULL,
                                       FOREIGN KEY (schedule_id) REFERENCES schedule(schedule_id),
                                       FOREIGN KEY (person_id) REFERENCES person(id)
 );
+
 -- 4. Section Person
 CREATE TABLE section_person (
                                 section_id INTEGER NOT NULL,

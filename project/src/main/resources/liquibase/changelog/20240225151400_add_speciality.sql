@@ -1,5 +1,5 @@
-insert into specialty(name, code) values
-('ФАКУЛЬТЕТ ИНЖЕНЕРИИ И ЕСТЕСТВЕННЫХ НАУК', '01'),
-('ФАКУЛЬТЕТ ПЕДАГОГИЧЕСКИХ И ГУМАНИТАРНЫХ НАУК', '02'),
-('ФАКУЛЬТЕТ ПРАВА И СОЦИАЛЬНЫХ НАУК', '03'),
-('ШКОЛА БИЗНЕСА', '04');
+INSERT INTO speciality(name, code) VALUES
+('FACULTY OF ENGINEERING AND NATURAL SCIENCES', '01'),
+('FACULTY OF EDUCATION AND HUMANITIES', '02'),
+('FACULTY OF LAW AND SOCIAL SCIENCES', '03'),
+('SCHOOL OF BUSINESS', '04');
