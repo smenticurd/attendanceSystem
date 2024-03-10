@@ -5,9 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fd06002b-4e7a-460e-b1de-161fcc04efd5" name="Changes" comment="TASK-1 remove todo">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_yaml_snakeyaml_1_30.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/project.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/project.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/project.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/project.test.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -216,7 +213,7 @@
       <workItem from="1707559804864" duration="3370000" />
       <workItem from="1707671990771" duration="880000" />
       <workItem from="1707981170783" duration="1559000" />
-      <workItem from="1710048939455" duration="2656000" />
+      <workItem from="1710048939455" duration="3278000" />
     </task>
     <task id="LOCAL-00001" summary="TASK-1 add liquibase configuration and initialize entities to database">
       <created>1707562151890</created>
