@@ -1,5 +1,6 @@
 package kz.sdu.project.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -8,8 +9,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-@Table(name = "schedule")
-@Builder
+@Table(name = "check_in_for_session")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -19,18 +19,17 @@ public class CheckInForSession {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(
-            name = "check_in_for_session_id",
+            name = "check_id",
             updatable = false
     )
     private Integer check_in_for_session_id;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     @Column(name = "get_passed", nullable = false)
     private LocalDateTime get_passed;
 
     @ManyToOne
     @JoinColumn(name = "person_id", nullable = false)
-    private Person person;
+    private Person person_checkin;
 
     @ManyToOne
     @JoinColumn(name = "schedule_id", nullable = false)

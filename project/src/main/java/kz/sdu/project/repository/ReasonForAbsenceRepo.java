@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -13,4 +14,7 @@ public interface ReasonForAbsenceRepo extends JpaRepository<ReasonForAbsence, In
     @Query("select r from ReasonForAbsence r where r.person_reason_for_absence.id = ?1 " +
             "and r.section_reason_for_absence.name like ?2")
     Optional<ReasonForAbsence> findByPersonIdAndSectionName(Integer id, String name);
+
+    @Query("select r from ReasonForAbsence r where r.person_reason_for_absence.id = ?1")
+    List<ReasonForAbsence> findAllByPersonId(Integer id);
 }

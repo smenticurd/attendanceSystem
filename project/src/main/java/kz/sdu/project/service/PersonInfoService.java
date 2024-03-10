@@ -20,14 +20,12 @@ public class PersonInfoService {
         this.personInfoRepo = personInfoRepo;
     }
 
-    public PersonInfo findById(Integer id) {
-        Optional<PersonInfo> result = personInfoRepo.findById(id);
-        return result.orElse(null);
+    public Optional<PersonInfo> findById(Integer id) {
+        return personInfoRepo.findById(id);
     }
 
-    public PersonInfo findByPersonId(Integer personId) {
-        Optional<PersonInfo> result = personInfoRepo.findByPersonId(personId);
-        return result.orElse(null);
+    public Optional<PersonInfo> findByPersonId(Integer personId) {
+        return personInfoRepo.findByPersonId(personId);
     }
 
     public List<PersonInfo> findAll() {
@@ -60,12 +58,12 @@ public class PersonInfoService {
         return "Image uploaded successfully for PersonInfo with ID " + userId;
     }
 
-    // public byte[] getUserImage(Integer userId) {
-    //     Optional<PersonInfo> personInfoOptional = personInfoRepo.findById(userId);
-    //     if (personInfoOptional.isPresent() && personInfoOptional.get().getImage() != null) {
-    //         return personInfoOptional.get().getImage();
-    //     } else {
-    //         throw new IllegalStateException("Image data not found for PersonInfo with ID " + userId);
-    //     }
-    // }
+//     public byte[] getUserImage(Integer userId) {
+//         Optional<PersonInfo> personInfoOptional = personInfoRepo.findById(userId);
+//         if (personInfoOptional.isPresent() && personInfoOptional.get().getImage() != null) {
+//             return personInfoOptional.get().getImage();
+//         } else {
+//             throw new IllegalStateException("Image data not found for PersonInfo with ID " + userId);
+//         }
+//     }
 }

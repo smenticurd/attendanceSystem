@@ -18,14 +18,12 @@ public class PersonAuthorityService {
         this.personAuthorityRepo = personAuthorityRepo;
     }
 
-    public PersonAuthority findByPersonId(Integer personId) {
-        Optional<PersonAuthority> result = personAuthorityRepo.findByPersonId(personId);
-        return result.orElse(null);
+    public Optional<PersonAuthority> findByPersonId(Integer personId) {
+        return personAuthorityRepo.findByPersonId(personId);
     }
 
-    public PersonAuthority findById(Integer id) {
-        Optional<PersonAuthority> result = personAuthorityRepo.findById(id);
-        return result.orElse(null);
+    public Optional<PersonAuthority> findById(Integer id) {
+        return personAuthorityRepo.findById(id);
     }
 
     public List<PersonAuthority> findAll() {

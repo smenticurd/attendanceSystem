@@ -1,6 +1,7 @@
 package kz.sdu.project.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import javax.persistence.*;
@@ -8,7 +9,6 @@ import java.util.*;
 
 @Entity
 @Table(name = "section")
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -37,11 +37,9 @@ public class Section {
 
     @ManyToOne
     @JoinColumn(name = "course_id", referencedColumnName = "course_id")
-    @JsonBackReference
     private Course course_section;
 
     @OneToOne(mappedBy = "section_schedule", cascade = CascadeType.ALL)
-    @JsonBackReference
     private Schedule schedule;
 
     @OneToMany(mappedBy = "section_reason_for_absence", cascade = CascadeType.ALL)
@@ -50,13 +48,12 @@ public class Section {
     @OneToMany(mappedBy = "section_att_info", cascade = CascadeType.ALL)
     private Set<AttendanceInfo> attendanceInfos;
 
-    @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "section_person",
             joinColumns = @JoinColumn(name = "section_id"),
             inverseJoinColumns = @JoinColumn(name = "person_id")
     )
-    @JsonManagedReference
     private Set<Person> persons = new HashSet<>();
 
     @Override
@@ -81,7 +78,6 @@ public class Section {
                 ", count=" + count +
                 ", type='" + type + '\'' +
                 ", relatedSectionName='" + relatedSectionName + '\'' +
-                ", course_section=" + (course_section != null ? course_section.getCourse_id() : "null") +
                 '}';
     }
 

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class SectionService {
@@ -18,13 +19,24 @@ public class SectionService {
         this.sectionRepo = sectionRepo;
     }
 
-    public Section findByName(String name) {
-        Optional<Section> section = sectionRepo.findByName(name);
-        return section.orElse(null);
+    public Optional<Section> findByName(String name) {
+        return  sectionRepo.findByName(name);
+    }
+
+    public Optional<Section> findById(Integer id) {
+        return  sectionRepo.findById(id);
+    }
+
+    public List<Section> findByPersonId(Integer id) {
+        return  sectionRepo.findByPersonId(id);
     }
 
     public List<Section> all() {
         return sectionRepo.findAll();
+    }
+
+    public List<Section> findByCourseId(Integer id) {
+        return sectionRepo.findByCourseId(id);
     }
 
     public void save(Section section) {

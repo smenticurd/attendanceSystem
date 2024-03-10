@@ -18,13 +18,16 @@ public class AttendanceRecordService {
         this.attendanceRecordRepo = attendanceRecordRepo;
     }
 
-    public AttendanceRecord findByPersonIdAndScheduleIdAndCurrentWeek(Integer personId, Integer scheduleId, Integer week) {
-        Optional<AttendanceRecord> result = attendanceRecordRepo.findByPersonIdAndScheduleIdAndCurrentWeek(personId, scheduleId, week);
-        return result.orElse(null);
+    public Optional<AttendanceRecord> findByPersonIdAndScheduleIdAndCurrentWeek(Integer personId, Integer scheduleId, Integer week) {
+        return attendanceRecordRepo.findByPersonIdAndScheduleIdAndCurrentWeek(personId, scheduleId, week);
     }
 
     public List<AttendanceRecord> findAll() {
         return attendanceRecordRepo.findAll();
+    }
+
+    public List<AttendanceRecord> findByPersonId(Integer id) {
+        return attendanceRecordRepo.findByPersonId(id);
     }
 
     public List<AttendanceRecord> findByPersonIdAndScheduleId(Integer id, Integer id2) {

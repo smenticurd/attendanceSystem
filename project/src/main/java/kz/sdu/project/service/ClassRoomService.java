@@ -18,14 +18,12 @@ public class ClassRoomService {
         this.classRoomRepo = classRoomRepo;
     }
 
-    public ClassRoom findByRoomNumber(String roomNumber) {
-        Optional<ClassRoom> result = classRoomRepo.findByRoom_number(roomNumber);
-        return result.orElse(null);
+    public Optional<ClassRoom> findByRoomNumber(String roomNumber) {
+        return classRoomRepo.findByRoom_number(roomNumber);
     }
 
-    public ClassRoom findById(Integer id) {
-        Optional<ClassRoom> result = classRoomRepo.findById(id);
-        return result.orElse(null);
+    public Optional<ClassRoom> findById(Integer id) {
+        return classRoomRepo.findById(id);
     }
 
     public List<ClassRoom> findAll() {

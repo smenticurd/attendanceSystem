@@ -2,6 +2,7 @@ package kz.sdu.project.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import javax.persistence.*;
@@ -9,7 +10,6 @@ import java.util.Set;
 
 @Entity
 @Table(name = "class_room")
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -32,7 +32,6 @@ public class ClassRoom {
     private String room_number;
 
     @OneToMany(mappedBy = "classRoom_schedule", cascade = CascadeType.ALL)
-    @JsonManagedReference
     private Set<Schedule> schedules;
 
     @Override

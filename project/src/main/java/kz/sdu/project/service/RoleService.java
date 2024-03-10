@@ -18,9 +18,12 @@ public class RoleService {
         this.roleRepo = roleRepo;
     }
 
-    public Role findByRole(String role) {
-        Optional<Role> result = roleRepo.findByRole(role);
-        return result.orElse(null);
+    public Optional<Role> findByRole(String role) {
+        return roleRepo.findByRole(role);
+    }
+
+    public Optional<Role> findById(Integer id) {
+        return roleRepo.findById(id);
     }
 
     public List<Role> findAll() {
@@ -38,4 +41,5 @@ public class RoleService {
     public void deleteById(Integer id) {
         roleRepo.deleteById(id);
     }
+
 }
