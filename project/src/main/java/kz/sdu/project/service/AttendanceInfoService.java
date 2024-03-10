@@ -18,23 +18,20 @@ public class AttendanceInfoService {
         this.attendanceInfoRepo = attendanceInfoRepo;
     }
 
-    public AttendanceInfo findByPersonIdAndSectionId(Integer personId, Integer sectionId) {
-        Optional<AttendanceInfo> result = attendanceInfoRepo.findByPersonIdAndSectionId(personId, sectionId);
-        return result.orElse(null);
+    public Optional<AttendanceInfo> findByPersonIdAndSectionId(Integer personId, Integer sectionId) {
+        return attendanceInfoRepo.findByPersonIdAndSectionId(personId, sectionId);
     }
 
     public List<AttendanceInfo> findAll() {
         return attendanceInfoRepo.findAll();
     }
 
-    public List<AttendanceInfo> findAllByPersonLogin(String login) {
-        return attendanceInfoRepo.findAllByPersonLogin(login);
+    public List<AttendanceInfo> findByPersonId(Integer id) {
+        return attendanceInfoRepo.findByPersonId(id);
     }
 
-
-
     public void save(AttendanceInfo attendanceInfo) {
-         attendanceInfoRepo.save(attendanceInfo);
+        attendanceInfoRepo.save(attendanceInfo);
     }
 
     public void delete(AttendanceInfo attendanceInfo) {

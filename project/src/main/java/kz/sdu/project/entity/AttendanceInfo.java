@@ -1,5 +1,6 @@
 package kz.sdu.project.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -7,7 +8,6 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "attendance_info")
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
