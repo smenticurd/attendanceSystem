@@ -216,7 +216,7 @@
       <workItem from="1707559804864" duration="3370000" />
       <workItem from="1707671990771" duration="880000" />
       <workItem from="1707981170783" duration="1559000" />
-      <workItem from="1710048939455" duration="2005000" />
+      <workItem from="1710048939455" duration="2656000" />
     </task>
     <task id="LOCAL-00001" summary="TASK-1 add liquibase configuration and initialize entities to database">
       <created>1707562151890</created>
