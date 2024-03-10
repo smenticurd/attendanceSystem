@@ -1,6 +1,7 @@
 package kz.sdu.project.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
@@ -11,7 +12,6 @@ import java.util.Set;
 
 @Entity
 @Table(name = "person")
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
@@ -46,15 +46,12 @@ public class Person {
             joinColumns = @JoinColumn(name = "person_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    @JsonManagedReference
     private Set<Role> RolePerson;
 
     @OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
-    @JsonBackReference
     private PersonAuthority personAuthority;
 
-    @OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
-    @JsonBackReference
+    @OneToOne(mappedBy = "person_person_info", cascade = CascadeType.ALL)
     private PersonInfo personInfo;
 
     @OneToMany(mappedBy = "person_reason_for_absence", cascade = CascadeType.ALL)
@@ -66,20 +63,10 @@ public class Person {
     @OneToMany(mappedBy = "person_attendanceInfo", cascade = CascadeType.ALL)
     private Set<AttendanceInfo> attendanceInfos;
 
-    @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
-    @JsonBackReference
-    @JoinTable(
-            name = "person_role",
-            joinColumns = @JoinColumn(name = "person_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private Set<Role> roles = new HashSet<>();
-
-    @ManyToMany(mappedBy = "persons", cascade = { CascadeType.MERGE, CascadeType.PERSIST })
-    @JsonBackReference
+    @ManyToMany(mappedBy = "persons", cascade = CascadeType.ALL)
     private Set<Section> sections = new HashSet<>();
 
-    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "person_checkin", cascade = CascadeType.ALL)
     private Set<CheckInForSession> checkInsForSession = new HashSet<>();
 
     @Override

@@ -1,6 +1,7 @@
 package kz.sdu.project.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -10,8 +11,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Secret_code_for_Check_in")
-@Builder
+@Table(name = "secret_code_for_check_in")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -29,13 +29,12 @@ public class SecretCodeForCheckIn {
     @Column(name = "secret_code", nullable = false)
     private String secret_code;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     @Column(name = "created", nullable = false)
     private LocalDateTime created;
 
     @ManyToOne
     @JoinColumn(name = "schedule_id", referencedColumnName = "schedule_id")
-    private Schedule schedule;
+    private Schedule schedule_checkin;
 
     @Override
     public boolean equals(Object o) {

@@ -17,18 +17,19 @@ public class ScheduleService {
         this.scheduleRepo = scheduleRepo;
     }
 
-    public Schedule findById(Integer id) {
-        Optional<Schedule> schedule = scheduleRepo.findById(id);
-        return schedule.orElse(null);
-    }
-
-    public Schedule findBySectionName(String sectionName) {
-        Optional<Schedule> schedule = scheduleRepo.findBySectionName(sectionName);
-        return schedule.orElse(null);
-    }
-
     public List<Schedule> findAll() {
         return scheduleRepo.findAll();
+    }
+    public List<Schedule> finByClassRoomId(Integer classRoomId) {
+        return scheduleRepo.finByClassRoomId(classRoomId);
+    }
+
+    public Optional<Schedule> findById(Integer id) {
+        return scheduleRepo.findById(id);
+    }
+
+    public Optional<Schedule> findBySectionName(String sectionName) {
+        return scheduleRepo.findBySectionName(sectionName);
     }
 
     public Schedule save(Schedule schedule) {

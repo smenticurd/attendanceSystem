@@ -18,13 +18,16 @@ public class ReasonForAbsenceService {
         this.reasonForAbsenceRepo = reasonForAbsenceRepo;
     }
 
-    public ReasonForAbsence findByPersonIdAndSectionName(Integer personId, String sectionName) {
-        Optional<ReasonForAbsence> result = reasonForAbsenceRepo.findByPersonIdAndSectionName(personId, sectionName);
-        return result.orElse(null);
+    public Optional<ReasonForAbsence> findByPersonIdAndSectionName(Integer personId, String sectionName) {
+        return reasonForAbsenceRepo.findByPersonIdAndSectionName(personId, sectionName);
     }
 
     public List<ReasonForAbsence> findAll() {
         return reasonForAbsenceRepo.findAll();
+    }
+
+    public List<ReasonForAbsence> findAllByPersonId(Integer id) {
+        return reasonForAbsenceRepo.findAllByPersonId(id);
     }
 
     public ReasonForAbsence save(ReasonForAbsence reasonForAbsence) {

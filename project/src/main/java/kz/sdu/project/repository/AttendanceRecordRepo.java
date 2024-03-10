@@ -20,4 +20,6 @@ public interface AttendanceRecordRepo extends JpaRepository<AttendanceRecord, In
     @Query("select a from AttendanceRecord a where a.person_att_record.id = ?1" +
             "and a.schedule_att_record.scheduleId = ?2")
     List<AttendanceRecord> findByPersonIdAndScheduleId(Integer id, Integer id2);
+    @Query("select a from AttendanceRecord a where a.person_att_record.id = ?1")
+    List<AttendanceRecord> findByPersonId(Integer id);
 }

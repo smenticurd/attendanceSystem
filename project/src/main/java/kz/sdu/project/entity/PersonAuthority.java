@@ -1,5 +1,7 @@
 package kz.sdu.project.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -8,8 +10,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
-@Table(name = "person_authority")
-@Builder
+@Table(name = "person_auth")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -25,7 +26,6 @@ public class PersonAuthority {
     )
     private Integer id;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "last_login")
     private LocalDate lastLogin;
 
@@ -42,7 +42,6 @@ public class PersonAuthority {
     )
     private Boolean active;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "password_refresh_date")
     private LocalDate passwordRefreshDate;
 
@@ -56,8 +55,4 @@ public class PersonAuthority {
     @JoinColumn(name = "person_id", referencedColumnName = "id")
     private Person person;
 
-
-    @OneToOne
-    @JoinColumn(name = "user_role_id", referencedColumnName = "role_id")
-    private Role userRole;
 }

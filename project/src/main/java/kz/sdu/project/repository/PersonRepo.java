@@ -12,4 +12,7 @@ public interface PersonRepo extends JpaRepository<Person, Integer> {
 
     Optional<Person> findByLogin(String login);
     Optional<Person> findPersonByEmail(String email);
+
+    @Query("SELECT p FROM Person p LEFT JOIN FETCH p.RolePerson WHERE p.id = ?1")
+    Optional<Person> findByIdWithRoles(Integer id);
 }

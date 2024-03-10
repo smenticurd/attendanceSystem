@@ -2,6 +2,7 @@ package kz.sdu.project.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,7 +11,6 @@ import java.util.Set;
 
 @Entity
 @Table(name = "role")
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -31,13 +31,8 @@ public class Role {
     @Column(name = "description")
     private String description;
 
-    @ManyToMany(mappedBy = "roles")
-    @JsonBackReference
+    @ManyToMany(mappedBy = "RolePerson")
     private Set<Person> persons;
-
-    @OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
-    @JsonBackReference
-    private PersonAuthority personAuthority;
 
     @Override
     public boolean equals(Object o) {

@@ -19,15 +19,17 @@ public class PersonService {
         this.personRepo = personRepo;
     }
 
-    public Person findById(Integer id) {
-        Optional<Person> result = personRepo.findById(id);
-        return result.orElse(null);
+    public Optional<Person> findById(Integer id) {
+        return personRepo.findById(id);
+    }
+
+    public Optional<Person> findByIdWithRoles(Integer id) {
+        return personRepo.findByIdWithRoles(id);
     }
 
     @Transactional
-    public Person findByLogin(String login) {
-        Optional<Person> result = personRepo.findByLogin(login);
-        return result.orElse(null);
+    public Optional<Person> findByLogin(String login) {
+        return personRepo.findByLogin(login);
     }
 
     public Optional<Person> findByEmail(String email) {

@@ -11,6 +11,6 @@ import java.util.Optional;
 
 @Repository
 public interface PersonInfoRepo extends JpaRepository<PersonInfo, Integer> {
-    @Query("select pi from PersonInfo pi where pi.person.id = :personId")
+    @Query("select pi from PersonInfo pi where pi.person_person_info.id = :personId")
     Optional<PersonInfo> findByPersonId(@Param("personId") Integer id);
 }

@@ -1,13 +1,13 @@
 package kz.sdu.project.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "attendance_record")
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -17,7 +17,6 @@ public class AttendanceRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "record_id")
     private Integer recordId;
-
 
     @Column(name = "total_present_hours")
     private Integer total_present_hours;
@@ -41,7 +40,6 @@ public class AttendanceRecord {
     @ManyToOne
     @JoinColumn(name = "schedule_id", referencedColumnName = "schedule_id")
     private Schedule schedule_att_record;
-
 
     @Override
     public boolean equals(Object o) {
@@ -67,8 +65,6 @@ public class AttendanceRecord {
                 ", currentWeek=" + currentWeek +
                 ", record_type='" + record_type + '\'' +
                 ", is_with_reason=" + is_with_reason +
-                ", person_att_record=" + (person_att_record != null ? person_att_record.getId() : "null") +
-                ", schedule_att_record=" + (schedule_att_record != null ? schedule_att_record.getScheduleId() : "null") +
                 '}';
     }
 }

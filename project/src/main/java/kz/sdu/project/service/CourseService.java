@@ -18,18 +18,20 @@ public class CourseService {
         this.courseRepo = courseRepo;
     }
 
-    public Course findByCode(String code) {
-        Optional<Course> result = courseRepo.findByCode(code);
-        return result.orElse(null);
+    public Optional<Course> findByCode(String code) {
+        return courseRepo.findByCode(code);
     }
 
-    public Course findById(Integer id) {
-        Optional<Course> result = courseRepo.findById(id);
-        return result.orElse(null);
+    public Optional<Course> findById(Integer id) {
+        return courseRepo.findById(id);
     }
 
     public List<Course> findAll() {
         return courseRepo.findAll();
+    }
+
+    public List<Course> findBySpecialityId(Integer id) {
+        return courseRepo.findBySpecialityId(id);
     }
     public Course save(Course course) {
         return courseRepo.save(course);

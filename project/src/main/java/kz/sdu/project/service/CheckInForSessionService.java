@@ -31,6 +31,10 @@ public class CheckInForSessionService {
         return checkInForSessionRepo.findAll();
     }
 
+    public List<CheckInForSession> findByPersonId(Integer id) {
+        return checkInForSessionRepo.findByPersonId(id);
+    }
+
     public Optional<CheckInForSession> findByPersonIdAndScheduleId(Integer personId, Integer scheduleId) {
         return checkInForSessionRepo.findByPersonIdAndScheduleId(personId, scheduleId);
     }

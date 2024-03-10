@@ -10,7 +10,6 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "person_info")
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -25,21 +24,19 @@ public class PersonInfo {
     @Column(nullable = false)
     private String gender;
 
-
     @Column(nullable = false)
     private String telephone;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;
 
     @OneToOne
     @JoinColumn(name = "person_id", referencedColumnName = "id")
-    private Person person;
+    private Person person_person_info;
 
-    @OneToOne
-    @JoinColumn(name = "speciality_id", referencedColumnName = "specialty_id")
-    private Specialty specialty_person_info;
+    @ManyToOne
+    @JoinColumn(name = "speciality_id", referencedColumnName = "speciality_id")
+    private Speciality specialty_person_info;
 
     @Override
     public boolean equals(Object o) {

@@ -2,6 +2,7 @@ package kz.sdu.project.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,7 +12,6 @@ import java.util.Set;
 
 @Entity
 @Table(name = "schedule")
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -44,7 +44,7 @@ public class Schedule{
     @OneToMany(mappedBy = "schedule_att_record", cascade = CascadeType.ALL)
     private Set<AttendanceRecord> attendanceRecords;
 
-    @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "schedule_checkin", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<SecretCodeForCheckIn> secretCodesForCheckIn;
 
     @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL, orphanRemoval = true)

@@ -1,6 +1,7 @@
 package kz.sdu.project.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -10,7 +11,6 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "reason_for_absence")
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -31,17 +31,16 @@ public class ReasonForAbsence {
     @Column(name = "status")
     private String status;
 
-    @Column(name = "isAccepted")
+    @Column(name = "is_accepted")
     private Boolean isAccepted;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(
             name = "date_info",
             nullable = false
     )
     private LocalDate date_info;
 
-    @ManyToOne  // Changed from @OneToOne to @ManyToOne
+    @ManyToOne
     @JoinColumn(name = "person_id", referencedColumnName = "id")
     private Person person_reason_for_absence;
 
@@ -58,14 +57,12 @@ public class ReasonForAbsence {
                 ", status='" + status + '\'' +
                 ", isAccepted=" + isAccepted +
                 ", date_info=" + date_info +
-                ", person_reason_for_absence=" + (person_reason_for_absence != null ? person_reason_for_absence.getId() : "null") +
-                ", section_reason_for_absence=" + (section_reason_for_absence != null ? section_reason_for_absence.getSectionId() : "null") +
                 '}';
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(reasonId, description, document, status, isAccepted, date_info, person_reason_for_absence, section_reason_for_absence);
+        return Objects.hash(reasonId, description, document, status, isAccepted, date_info);
     }
 
     @Override
@@ -78,9 +75,7 @@ public class ReasonForAbsence {
                 Objects.equals(document, that.document) &&
                 Objects.equals(status, that.status) &&
                 Objects.equals(isAccepted, that.isAccepted) &&
-                Objects.equals(date_info, that.date_info) &&
-                Objects.equals(person_reason_for_absence, that.person_reason_for_absence) &&
-                Objects.equals(section_reason_for_absence, that.section_reason_for_absence);
+                Objects.equals(date_info, that.date_info);
     }
 
 
