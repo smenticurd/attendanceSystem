@@ -1,10 +1,10 @@
-FROM nginx:alpine
+FROM nginx:latest
 
-RUN rm -rf /usr/share/nginx/html/*
+COPY assets/ /usr/share/nginx/html/assets
+COPY pages/ /usr/share/nginx/html/pages 
 
-COPY . /usr/share/nginx/html/
-COPY pages /usr/share/nginx/html
-COPY assets /usr/share/nginx/html
+RUN rm /usr/share/nginx/html/index.html
+RUN ln -s /usr/share/nginx/html/pages/login/login.html /usr/share/nginx/html/index.html
 
 EXPOSE 80
 
