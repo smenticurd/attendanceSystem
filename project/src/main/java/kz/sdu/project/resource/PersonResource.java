@@ -56,10 +56,10 @@ public class PersonResource {
         return PersonAdapter.toPersonDto(Objects.requireNonNull(SecurityUtils.getCurrentPerson()));
     }
 
-    @GetMapping("/roles/{id}")
-    public ResponseEntity<List<RoleDTO>> roles(@PathVariable("id") Integer id) {
-        Person person = personService.findByIdWithRoles(id)
-                .orElseThrow(() -> new UsernameNotFoundException(String.format("Role with user id %d not found", id)));
+    @GetMapping("/roles/{name}")
+    public ResponseEntity<List<RoleDTO>> roles(@PathVariable("name") String name) {
+        Person person = personService.findByLogin(name)
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("Role with user id %s not found", name)));
         Set<Role> roles = person.getRolePerson();
 
         return ResponseEntity.ok().body(roles.stream()
@@ -144,5 +144,5 @@ public class PersonResource {
         return ResponseEntity.ok().body(checkInForSessions.stream()
                 .map(CheckInForSessionDTO::fromEntity).collect(Collectors.toList()));
     }
-
 }
+

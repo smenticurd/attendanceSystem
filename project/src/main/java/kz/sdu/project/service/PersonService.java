@@ -23,10 +23,6 @@ public class PersonService {
         return personRepo.findById(id);
     }
 
-    public Optional<Person> findByIdWithRoles(Integer id) {
-        return personRepo.findByIdWithRoles(id);
-    }
-
     @Transactional
     public Optional<Person> findByLogin(String login) {
         return personRepo.findByLogin(login);

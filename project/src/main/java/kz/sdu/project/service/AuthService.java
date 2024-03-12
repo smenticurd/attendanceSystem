@@ -46,34 +46,32 @@ public class AuthService {
 
     @Transactional
     public ResponseEntity<HttpStatus> register(RegistrationDto registrationDto) {
+
+        String spe_code = registrationDto.getSpecialityCode();
+        Speciality speciality = specialityService.findByCode(spe_code)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Speciality with code %s not found...",spe_code)));
+        String role = "ROLE_STUDENT";
+        Role student = roleService.findByRole(role)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Role with %s role found", role)));
+
         try {
             log.info("Start registration of student");
-            // registrationValidation.validation(registrationDto);
+            registrationValidation.validation(registrationDto);
+
             Person person = PersonAdapter.toEntity(registrationDto);
+            person.setRolePerson(Set.of(student));
 
             PersonInfo personInfo = PersonAdapter.toEntityPersonInfo(registrationDto);
             personInfo.setPerson_person_info(person);
+            personInfo.setSpecialty_person_info(speciality);
 
             PersonAuthority personAuthority = PersonAdapter.toEntityPersonAuth(registrationDto);
-            personAuthority.setPerson(person);
             personAuthority.setPasswordHash(passwordEncoder.encode(registrationDto.getPassword()));
-            String speCode = registrationDto.getSpecialityCode();
-            Speciality byCode = specialityService.findByCode(speCode)
-                    .orElseThrow(() -> new EntityNotFoundException("Speciality with code" + speCode + " not"));
-            if (byCode != null) {
-                personInfo.setSpecialty_person_info(byCode);
-            }
+            personAuthority.setPerson(person);
 
             personService.save(person);
             personAuthorityService.save(personAuthority);
             personInfoService.save(personInfo);
-
-            String role = "ROLE_STUDENT";
-            Role student = roleService.findByRole(role)
-                    .orElseThrow(() -> new EntityNotFoundException(String.format("Role with %s role found", role)));
-            if (student != null) {
-                person.setRolePerson(Set.of(student));
-            }
             log.info("Successfully registered");
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         }

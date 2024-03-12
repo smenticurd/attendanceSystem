@@ -5,7 +5,10 @@ import kz.sdu.project.dto.RegistrationDto;
 import kz.sdu.project.entity.Person;
 import kz.sdu.project.entity.PersonAuthority;
 import kz.sdu.project.entity.PersonInfo;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.StreamUtils;
 
 import java.io.IOException;
@@ -22,16 +25,16 @@ public class PersonAdapter {
         person.setFirstName(registrationDto.getFirstname());
         person.setLastName(registrationDto.getLastname());
         person.setMiddleName(registrationDto.getMiddlename());
-
         return person;
     }
 
     public static PersonInfo toEntityPersonInfo(RegistrationDto registrationDto) {
+
         PersonInfo personInfo = new PersonInfo();
         personInfo.setTelephone(registrationDto.getTelephone());
         personInfo.setGender(registrationDto.getGender() ? "WOMEN" : "MEN");
         // personInfo.setImage(getDefaultImage());
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         LocalDate localDate = LocalDate.parse(registrationDto.getBirthDate(), dateTimeFormatter);
         personInfo.setBirthDate(localDate);
 
@@ -43,7 +46,7 @@ public class PersonAdapter {
         personAuthority.setActive(true);
         personAuthority.setPasswordRefreshDate(LocalDate.now().plus(4, ChronoUnit.YEARS));
         personAuthority.setIsRefreshed(false);
-
+        personAuthority.setLastLogin(LocalDate.now());
         return personAuthority;
     }
 
@@ -73,5 +76,10 @@ public class PersonAdapter {
         } catch (IOException e) {
             throw new RuntimeException("Unable to load default image", e);
         }
+    }
+
+    @Bean
+    public static PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

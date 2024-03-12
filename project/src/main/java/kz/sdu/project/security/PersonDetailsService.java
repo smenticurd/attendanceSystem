@@ -22,11 +22,9 @@ public class PersonDetailsService implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Person byLogin = personService.findByLogin(username);
-        if (byLogin == null) {
-            throw new UsernameNotFoundException(String.format("username %s not found", username));
-        }
-        // TODO : добавить роли пользователю
+        Person byLogin = personService.findByLogin(username)
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("Person with username %s not found",username)));
+
         return new PersonDetails(byLogin, byLogin.getRolePerson());
     }
 }
