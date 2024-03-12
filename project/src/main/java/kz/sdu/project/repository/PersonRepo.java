@@ -10,9 +10,7 @@ import java.util.Optional;
 @Repository
 public interface PersonRepo extends JpaRepository<Person, Integer> {
 
+    @Query("SELECT p FROM Person p   LEFT JOIN FETCH p.RolePerson WHERE p.login = ?1")
     Optional<Person> findByLogin(String login);
     Optional<Person> findPersonByEmail(String email);
-
-    @Query("SELECT p FROM Person p LEFT JOIN FETCH p.RolePerson WHERE p.id = ?1")
-    Optional<Person> findByIdWithRoles(Integer id);
 }

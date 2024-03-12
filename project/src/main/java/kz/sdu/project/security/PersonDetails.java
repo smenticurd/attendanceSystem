@@ -3,6 +3,8 @@ package kz.sdu.project.security;
 import kz.sdu.project.entity.Person;
 import kz.sdu.project.entity.Role;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,18 +15,18 @@ import java.util.List;
 import java.util.Set;
 
 @AllArgsConstructor
+@Getter
+@Setter
 public class PersonDetails implements UserDetails {
     private final Person person;
     private final Set<Role> roles;
 
     @Override
-    // TODO : fix
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authority = new ArrayList<>();
-//         roles.forEach(role -> {
-//             authority.add(new SimpleGrantedAuthority(role.getRole()));
-//         });
-
+         roles.forEach(role -> {
+             authority.add(new SimpleGrantedAuthority(role.getRole()));
+         });
         return authority;
     }
 
@@ -56,9 +58,5 @@ public class PersonDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return false;
-    }
-
-    public Person getPerson() {
-        return person;
     }
 }

@@ -25,9 +25,6 @@ public class RegistrationDto {
     @NotBlank(message = "Middle name must not be blank")
     private String middlename;
 
-    @NotBlank(message = "Course year must not be blank")
-    private String courseYear;
-
     @NotNull(message = "Gender must be specified")
     private Boolean gender;
 
@@ -37,6 +34,6 @@ public class RegistrationDto {
     @Pattern(regexp = "^(\\+\\d{1,3}[- ]?)?\\d{10}$", message = "Telephone must be a valid phone number")
     private String telephone;
 
-    @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$", message = "Birthdate must be in the ISO format: YYYY-MM-DD")
+    @Pattern(regexp = "^\\d{2}.\\d{2}.\\d{4}$", message = "Birthdate must be in the ISO format: YYYY-MM-DD")
     private String birthDate;
 }

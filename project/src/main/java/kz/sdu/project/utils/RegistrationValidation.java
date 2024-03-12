@@ -19,9 +19,9 @@ public class RegistrationValidation {
     private final SpecialityService specialityService;
 
     public void validation(RegistrationDto dto) {
-        if (!dto.getPassword().matches("^(?=.*[a-z])(?=.*[A-Z]).{8,}$\n")) {
-            throw new IllegalArgumentException("Password must be have at least 8 characters and one uppercase letter");
-        }
+//        if (!dto.getPassword().matches("^(?=.*[a-z])(?=.*[A-Z]).{8,}$\n")) {
+//            throw new IllegalArgumentException("Password must be have at least 8 characters and one uppercase letter");
+//        }
         Optional<Person> byEmail = personService.findByEmail(dto.getEmail());
         if (byEmail.isPresent()) {
             throw new IllegalArgumentException("Email already registered in our system");
