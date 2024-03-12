@@ -18,13 +18,14 @@
                     firstname: document.getElementById('first-name').value,
                     lastname: document.getElementById('last-name').value,
                     courseYear: document.getElementById('course').value,
+                    gender: true,
                     specialityCode: document.getElementById('code').value,
                     telephone: document.getElementById('telephone').value,
                     birthDate: document.getElementById('birthdate').value
                 };
 
                 // Make an AJAX request
-                fetch('http://0.0.0.0:8080/open-api/auth/register', {
+                fetch('http://0.0.0.0:8081/open-api/auth/register', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -44,6 +45,7 @@
                     .catch(error => {
                         // Handle errors
                         console.error('There was a problem with the fetch operation:', error);
+                        error.body.data.Error
                     });
             });
         });
@@ -72,7 +74,7 @@
                     <input type="text" placeholder="First Name" id="first-name" name="first-name" required>
                     <input type="text" placeholder="Last Name" id="last-name" name="last-name" required>
                     <input type="email" placeholder="Email" id="email" name="email" required>
-                    <!-- <div class="gender">
+                    <div class="gender">
                         <label for="male">
                             <input type="radio" name="gender" value="male" id="male" required>
                             Male
@@ -81,11 +83,12 @@
                             <input type="radio" name="gender" value="female" id="female" required>
                             Female
                         </label>
-                    </div> -->
+                    </div>
                     <input type="number" placeholder="Telephone" id="telephone" name="telephone" required>
                     <input type="text" placeholder="Speciality code" id="code" name="code" required>
                     <input type="text" placeholder="Course Year" id="course" name="course" required>
-                    <input type="date" placeholder="Birthdate" id="birthdate" name="birthdate" required>
+                    <input type="text" placeholder="Birthdate" id="birthdate" name="birthdate" required>
+                    <!-- pattern="\d{2}\.\d{2}\.\d{4}"  -->
                     <input type="password" placeholder="Password" id="password" name="password" required>
                     <input type="password" placeholder="Repeat Password" id="repeat" name="repeat" required>
                     <button type="submit">Enter</button>
