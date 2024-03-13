@@ -38,14 +38,43 @@
                 <div class="info">
                     <div class="icon" style="background-image: url(../../assets/images/icon.png);"></div>
                     <div class="details" id="userDetails">
-                        <!-- User details will be dynamically inserted here -->
+                        <div class="details">
+                            <div class="personal-info">
+                                <p>LOGIN:</p>
+                                <p id="id"></p>
+                            </div>
+                            <div class="personal-info">
+                                <p>NAME SURNAME:</p>
+                                <p id="name"></p>
+                            </div>
+                            <div class="personal-info">
+                                <p>SPECIALITY NAME:</p>
+                                <p id="speciality"></p>
+                            </div>
+                            <div class="personal-info">
+                                <p>GENDER:</p>
+                                <p id="gender"></p>
+                            </div>
+                            <div class="personal-info">
+                                <p>EMAIL:</p>
+                                <p id="email"></p>
+                            </div>
+                            <div class="personal-info">
+                                <p>BIRTH DATE:</p>
+                                <p id="birth-date"></p>
+                            </div>
+                            <div class="personal-info">
+                                <p>LAST LOGIN DATE:</p>
+                                <p id="login-date"></p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </main>
-<div class="details">
+<!-- <div class="details">
     <div class="personal-info">
         <p>ID NUMBER:</p>
         <p id="id"></p>
@@ -74,12 +103,12 @@
         <p>LAST LOGIN DATE:</p>
         <p id="login-date"></p>
     </div>
-</div>
+</div> -->
 
 <script>
     (async function () {
         try {
-            const response = await fetch('http://localhost:8080/api/person/current', {
+            const response = await fetch('http://localhost:8081/api/person/v1/current', {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`, // Add authorization if needed
@@ -102,7 +131,18 @@
         }
     })();
 </script>
+
+<script>
+    // Обработчик события для кнопки "Log out"
+    document.querySelector('.logout button').addEventListener('click', function(event) {
+        event.preventDefault(); // Предотвращаем отправку формы по умолчанию
+        localStorage.removeItem('token'); // Удаляем токен из локального хранилища
+        window.location.href = '../../pages/login/login.html'; // Перенаправляем пользователя на страницу входа
+    });
+</script>
+
 </body>
 </html>
 
-
+ 
+ 

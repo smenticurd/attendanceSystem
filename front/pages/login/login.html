@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -59,7 +59,7 @@
     
                 // Make a POST request to the API
                 try {
-                    const response = await fetch('http://0.0.0.0:8080/open-api/auth/login', {
+                    const response = await fetch('http://0.0.0.0:8081/open-api/auth/login', {
                         method: 'POST',
                         headers: headers, // Use the headers object here
                         body: JSON.stringify({ login, password }),
@@ -113,7 +113,7 @@
             corsHeaders.append('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
     
             // Make a dummy OPTIONS request to the server to pre-flight the CORS headers
-            fetch('http://0.0.0.0:8080/open-api/auth/login', {
+            fetch('http://0.0.0.0:8081/open-api/auth/login', {
                 method: 'OPTIONS',
                 headers: corsHeaders,
             });
@@ -122,4 +122,3 @@
 </body>
 </html> 
  
-
