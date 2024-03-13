@@ -17,7 +17,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.validation.Valid;
 import java.util.Map;
 import java.util.Set;
 
@@ -38,10 +40,10 @@ public class AuthService {
 
     public Map<String, String> login(AuthDto authDto) {
         UserDetails userDetails = personDetailsService.loadUserByUsername(authDto.getLogin());
-        if (passwordEncoder.matches(authDto.getPassword(), userDetails.getPassword())) {
-            return Map.of("token", jwtUtil.generateToken(authDto.getLogin()));
+        if (!passwordEncoder.matches(authDto.getPassword(), userDetails.getPassword())) {
+            throw  new UsernameNotFoundException("Person with password not found");
         }
-        return Map.of("Message", "Incorrect credentials");
+        return Map.of("token", jwtUtil.generateToken(authDto.getLogin()));
     }
 
     @Transactional
@@ -53,11 +55,10 @@ public class AuthService {
         String role = "ROLE_STUDENT";
         Role student = roleService.findByRole(role)
                 .orElseThrow(() -> new EntityNotFoundException(String.format("Role with %s role found", role)));
+        registrationValidation.validation(registrationDto);
 
         try {
             log.info("Start registration of student");
-            registrationValidation.validation(registrationDto);
-
             Person person = PersonAdapter.toEntity(registrationDto);
             person.setRolePerson(Set.of(student));
 
@@ -73,11 +74,11 @@ public class AuthService {
             personAuthorityService.save(personAuthority);
             personInfoService.save(personInfo);
             log.info("Successfully registered");
-            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+            return  ResponseEntity.accepted().build();
         }
         catch (Exception e) {
             log.error(e.getMessage());
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return  ResponseEntity.badRequest().build();
         }
     }
 }
