@@ -31,7 +31,7 @@ CREATE TABLE person_auth (
                                   person_id INT NOT NULL,
                                   last_login date,
                                   password_hash TEXT NOT NULL,
-                                  active BOOLEAN NOT NULL,
+                                  active  BOOLEAN NOT NULL,
                                   password_refresh_date DATE,
                                   isRefreshed BOOLEAN NOT NULL,
                                   FOREIGN KEY (person_id) REFERENCES person(id)

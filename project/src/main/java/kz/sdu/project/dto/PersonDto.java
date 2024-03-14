@@ -18,4 +18,5 @@ public class PersonDto {
     private LocalDate lastLogin;
     private String courseCode;
     private String telephone;
+    private String gender;
 }

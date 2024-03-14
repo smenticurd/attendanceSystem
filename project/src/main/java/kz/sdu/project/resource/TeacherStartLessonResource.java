@@ -23,10 +23,8 @@ public class TeacherStartLessonResource {
     }
 
     @PostMapping
-    public ResponseEntity<Map<String, String>> startByManually(@RequestBody @Valid RequestBody3DTO requestBody3DTO) { {
+    public ResponseEntity<Map<String, String>> startByManually(@RequestBody @Valid RequestBody3DTO requestBody3DTO) {
         log.info("Lesson Start by Teacher process... with {}", requestBody3DTO);
         return ResponseEntity.ok().body(teacherStartLessonService.start(requestBody3DTO));
-    }
-
     }
 }

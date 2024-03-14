@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-import static kz.sdu.project.domain.AttendanceStatus.*;
+import static kz.sdu.project.domain.ActionStatus.*;
 import static kz.sdu.project.domain.Constants.*;
 @Service
 @Slf4j
@@ -46,6 +46,7 @@ public class StudentAttStatusService {
             log.info("No attendance information found for the student with ID {}", student.getId());
             return finalAttMapList;
         }
+
         attList.forEach(attendanceInfo -> updateAttendanceStatus(finalAttMapList, attendanceInfo));
 
         log.info("Completed AttendanceStatusAll for {}" , student);
@@ -55,15 +56,18 @@ public class StudentAttStatusService {
     public Map<String, List<AttendanceStatusDetailDto>> attStatusBySection(RequestBody2DTO requestBodyDTO) {
 
         String login = requestBodyDTO.getLogin();
-        Person student = personService.findByLogin(requestBodyDTO.getLogin())
+        Person student = personService.findByLogin(login)
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("Student with username %s not found", login)));
         String[] sections = requestBodyDTO.getSectionNames().split("[:;]");
         Map<String, List<AttendanceStatusDetailDto>> attMap = new HashMap<>();
-
+        System.out.println("sections.length" + sections.length);
         for(String section : sections) {
+            System.out.println("Before Sections are " + section);
             if (section.isEmpty()) continue;
             updateAttendanceDetailStatus(attMap, section, student);
+            System.out.println("Sections are " + section);
         }
+
 
         log.info("Completed AttendanceStatusAllBySection for {}" , student);
         return attMap;
@@ -91,26 +95,25 @@ public class StudentAttStatusService {
         LocalDate date = getCurrentLocalDate(attendanceRecord.getCurrentWeek(), schedule.getDayOfWeek());
         String place = schedule.getClassRoom_schedule().getRoom_number();
 
-
         for (int hour = 0; hour < totalHours; hour++) {
-            String attStatus = determineAttendanceStatus(hour, presentHours--,isWithReason);
+            String attStatus = determineAttendanceStatus(presentHours--,isWithReason);
             String time = formatHour(schedule.getStartTime(), hour);
             addAttendanceDetailDto(attDetList, date, place, attStatus, time);
         }
     }
 
-    private String determineAttendanceStatus(int hour, int presentHours, boolean isWithReason) {
+    private String determineAttendanceStatus(int presentHours, boolean isWithReason) {
         if (isWithReason) {
-            return WITH_REASON_STATUS.name();
+            return WITH_REASON_STATUS.toString();
         } else if (presentHours > 0) {
-            return PRESENT_STATUS.name();
+            return PRESENT_STATUS.toString();
         } else {
-            return ABSENT_STATUS.name();
+            return ABSENT_STATUS.toString();
         }
     }
 
     private String formatHour(String startTime, int hourIncrement) {
-        int startsAt = Integer.parseInt(startTime.split("[.;]")[0]);
+        int startsAt = Integer.parseInt(startTime.split("[.;:]")[0]);
         return (startsAt + hourIncrement) + ":00";
     }
 

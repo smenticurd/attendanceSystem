@@ -26,4 +26,5 @@
     <include file="/liquibase/changelog/20240309161502_add_teacher_auth.sql" relativeToChangelogFile="false"/>
     <include file="/liquibase/changelog/20240309161503_add_teacher_section.sql" relativeToChangelogFile="false"/>
     <include file="/liquibase/changelog/20240309161504_add_teacher_info.sql" relativeToChangelogFile="false"/>
+    <include file="/liquibase/changelog/20240313161500_add_attendance_info.sql" relativeToChangelogFile="false"/>
 </databaseChangeLog>
