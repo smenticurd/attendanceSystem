@@ -50,23 +50,16 @@ public class PersonAdapter {
         return personAuthority;
     }
 
-    public static PersonDto toPersonDto(Person person) {
-        PersonInfo personInfo = person.getPersonInfo();
-        PersonAuthority personAuthority = person.getPersonAuthority();
-        String code = "";
-        if (personInfo.getSpecialty_person_info() != null) {
-            code = personInfo.getSpecialty_person_info().getCode();
-        }
-        return PersonDto.builder()
-                .login(person.getLogin())
-                .middlename(person.getMiddleName())
-                .firstname(person.getFirstName())
-                .lastname(person.getLastName())
-                .email(person.getEmail())
-                .lastLogin(personAuthority.getLastLogin())
-                .telephone(person.getPersonInfo().getTelephone())
-                .courseCode(code)
-                .build();
+    public static PersonDto toPersonDto(Person person) {    PersonInfo personInfo = person.getPersonInfo();
+        PersonAuthority personAuthority = person.getPersonAuthority();    String code = "",
+                gender = "";    if (personInfo.getSpecialty_person_info() != null) {
+            code = personInfo.getSpecialty_person_info().getName();        gender = personInfo.getGender();
+        }    return PersonDto.builder()
+                .login(person.getLogin())            .middlename(person.getMiddleName())
+                .firstname(person.getFirstName())            .lastname(person.getLastName())
+                .email(person.getEmail())            .lastLogin(personAuthority.getLastLogin())
+                .telephone(person.getPersonInfo().getTelephone())            .courseCode(code)
+                .gender(gender)            .build();
     }
 
     private static byte[] getDefaultImage() {

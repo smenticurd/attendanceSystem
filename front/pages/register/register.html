@@ -184,20 +184,19 @@
                             window.location.href = '../login/login.html'; 
                         }, 3000); 
                     } else if (obj.data.errorMessage) { // Check if message exists in the response 
-                        throw new Error(obj.data.errorMessage); 
+                        console.log('log 0') 
+                        displayMessage(obj.data.errorMessage + '', 'red')
+                        
                     } else { 
-                        console.log("first")
-                        displayMessage('You have successfully registered!', 'green'); 
-                        setTimeout(function() { 
-                            window.location.href = '../login/login.html'; 
-                        }, 3000);             
+                        console.log('log 1')         
                     }
                 }) 
                 .catch(error => { 
-                    console.log("second")
-
-                    console.error('There was a problem with the fetch operation:', error); 
-                    displayMessage(error.message, 'red'); 
+                    console.log('log 2')
+                    displayMessage('You have successfully registered!', 'green'); 
+                        setTimeout(function() { 
+                            window.location.href = '../login/login.html'; 
+                        }, 3000);
                 }); 
             }); 
      
@@ -210,7 +209,7 @@
                     form.appendChild(messageElement); 
                 } 
                 messageElement.innerText = message; 
-                messageElement.style.color = color; 
+                messageElement.style.color = color;
             } 
         }); 
     </script>
