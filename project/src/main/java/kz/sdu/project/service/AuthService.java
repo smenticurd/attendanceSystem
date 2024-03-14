@@ -37,14 +37,14 @@ public class AuthService {
     private final RegistrationValidation registrationValidation;
     private final PersonService personService;
     private final PersonAuthorityService personAuthorityService;
-    private final RoleService roleService;
     private final PersonInfoService personInfoService;
     private final SpecialityService specialityService;
+    private final RoleService roleService;
 
     public Map<String, String> login(AuthDto authDto) {
         UserDetails userDetails = personDetailsService.loadUserByUsername(authDto.getLogin());
         if (!passwordEncoder.matches(authDto.getPassword(), userDetails.getPassword())) {
-            throw  new UsernameNotFoundException("Person with password not found...");
+            throw new IllegalArgumentException("Person with password not found...");
         }
 
         String role = userDetails.getAuthorities().stream()
@@ -57,15 +57,15 @@ public class AuthService {
     }
     
     @Transactional
-    public ResponseEntity<HttpStatus> register(RegistrationDto registrationDto) {
+    public ResponseEntity<HttpStatus> register(@Valid RegistrationDto registrationDto) {
 
         String spe_code = registrationDto.getSpecialityCode();
+        registrationValidation.validation(registrationDto);
         Speciality speciality = specialityService.findByCode(spe_code)
                 .orElseThrow(() -> new EntityNotFoundException(String.format("Speciality with code %s not found...",spe_code)));
         String role = "ROLE_STUDENT";
         Role student = roleService.findByRole(role)
                 .orElseThrow(() -> new EntityNotFoundException(String.format("Role with %s role found", role)));
-        registrationValidation.validation(registrationDto);
 
         try {
             log.info("Start registration of student");
