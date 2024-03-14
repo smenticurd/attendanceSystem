@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
+
 @Configuration
 public class PersonDetailsService implements UserDetailsService {
     private final PersonService personService;
@@ -22,7 +24,7 @@ public class PersonDetailsService implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Person byLogin = personService.findByLogin(username)
+        Person byLogin = personService.findByLoginAndLoadRoles(username)
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("Person with username %s not found",username)));
 
         return new PersonDetails(byLogin, byLogin.getRolePerson());

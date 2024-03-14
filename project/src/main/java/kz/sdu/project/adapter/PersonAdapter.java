@@ -2,9 +2,7 @@ package kz.sdu.project.adapter;
 
 import kz.sdu.project.dto.PersonDto;
 import kz.sdu.project.dto.RegistrationDto;
-import kz.sdu.project.entity.Person;
-import kz.sdu.project.entity.PersonAuthority;
-import kz.sdu.project.entity.PersonInfo;
+import kz.sdu.project.entity.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,6 +13,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.Optional;
 
 public class PersonAdapter {
 
@@ -53,10 +52,14 @@ public class PersonAdapter {
     public static PersonDto toPersonDto(Person person) {
         PersonInfo personInfo = person.getPersonInfo();
         PersonAuthority personAuthority = person.getPersonAuthority();
-        String code = "";
-        if (personInfo.getSpecialty_person_info() != null) {
-            code = personInfo.getSpecialty_person_info().getCode();
-        }
+
+        String code = Optional.ofNullable(personInfo.getSpecialty_person_info())
+                .map(Speciality::getName)
+                .orElse("Unknown_Spe_Code");
+        String gender = Optional.of(personInfo)
+                .map(PersonInfo::getGender)
+                .orElse("Unknown_Gender");
+
         return PersonDto.builder()
                 .login(person.getLogin())
                 .middlename(person.getMiddleName())
@@ -66,6 +69,7 @@ public class PersonAdapter {
                 .lastLogin(personAuthority.getLastLogin())
                 .telephone(person.getPersonInfo().getTelephone())
                 .courseCode(code)
+                .gender(gender)
                 .build();
     }
 

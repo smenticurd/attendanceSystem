@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AttendanceStatusDto {
-    private Integer id;
     private String code;
     private String courseName;
     private Integer hours;
