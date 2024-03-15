@@ -21,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -44,8 +43,9 @@ public class AuthService {
     public Map<String, String> login(AuthDto authDto) {
         UserDetails userDetails = personDetailsService.loadUserByUsername(authDto.getLogin());
         if (!passwordEncoder.matches(authDto.getPassword(), userDetails.getPassword())) {
-            throw new IllegalArgumentException("Person with password not found...");
+            throw  new UsernameNotFoundException("Person with password not found");
         }
+       
 
         String role = userDetails.getAuthorities().stream()
                 .findFirst()
@@ -66,6 +66,7 @@ public class AuthService {
         String role = "ROLE_STUDENT";
         Role student = roleService.findByRole(role)
                 .orElseThrow(() -> new EntityNotFoundException(String.format("Role with %s role found", role)));
+        registrationValidation.validation(registrationDto);
 
         try {
             log.info("Start registration of student");

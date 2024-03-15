@@ -19,4 +19,5 @@ public class PersonDto {
     private String courseCode;
     private String telephone;
     private String gender;
+    private String rolePerson;
 }
