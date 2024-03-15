@@ -24,7 +24,7 @@
                     <a href="#" id="selected">HOME PAGE</a>
                     <a href="./schedule-page.html">Course schedule</a>
                     <a href="./attendence-page.html">ATTENDANCE</a>
-                    <a href="./profile-page.html">my profile</a>
+                    <a href="./profile-page.html">set profile</a>
                     <a href="./absences-page.html">absence</a>
                     <form action="" class="logout">
                         <button>Log out</button>
@@ -67,6 +67,11 @@
                                 <p>LAST LOGIN DATE:</p>
                                 <p id="login-date"></p>
                             </div>
+                            <div class="personal-info">
+                                <p>STATUS:</p>
+                                <p id="rolePerson"></p>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -125,6 +130,8 @@
                 document.getElementById('speciality').textContent = userData.courseCode || '';
                 document.getElementById('telephone').textContent = userData.telephone || '';
                 document.getElementById('gender').textContent = userData.gender || '';
+                document.getElementById('rolePerson').textContent = userData.rolePerson || '';
+                
 
             } else {
                 console.error('Failed to fetch user details:', response.statusText);
