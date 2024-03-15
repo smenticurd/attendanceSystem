@@ -24,6 +24,7 @@ public class AuthResource {
         return ResponseEntity.ok(authService.login(authDto));
     }
 
+
     @PostMapping("/register")
     public ResponseEntity<HttpStatus> register(@RequestBody  @Valid RegistrationDto registrationDto) {
         log.info("Register process with {}" , registrationDto);

@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import javax.validation.Valid;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -34,22 +36,31 @@ public class AuthService {
     private final RegistrationValidation registrationValidation;
     private final PersonService personService;
     private final PersonAuthorityService personAuthorityService;
-    private final RoleService roleService;
     private final PersonInfoService personInfoService;
     private final SpecialityService specialityService;
+    private final RoleService roleService;
 
     public Map<String, String> login(AuthDto authDto) {
         UserDetails userDetails = personDetailsService.loadUserByUsername(authDto.getLogin());
         if (!passwordEncoder.matches(authDto.getPassword(), userDetails.getPassword())) {
             throw  new UsernameNotFoundException("Person with password not found");
         }
-        return Map.of("token", jwtUtil.generateToken(authDto.getLogin()));
-    }
+       
 
+        String role = userDetails.getAuthorities().stream()
+                .findFirst()
+                .map(grantedAuthority -> grantedAuthority.getAuthority().replace("ROLE_", ""))
+                .orElseThrow(() -> new EntityNotFoundException("No roles found for user..."));
+        String token = jwtUtil.generateToken(authDto.getLogin());
+
+        return Map.of("token", token, "role", role);
+    }
+    
     @Transactional
-    public ResponseEntity<HttpStatus> register(RegistrationDto registrationDto) {
+    public ResponseEntity<HttpStatus> register(@Valid RegistrationDto registrationDto) {
 
         String spe_code = registrationDto.getSpecialityCode();
+        registrationValidation.validation(registrationDto);
         Speciality speciality = specialityService.findByCode(spe_code)
                 .orElseThrow(() -> new EntityNotFoundException(String.format("Speciality with code %s not found...",spe_code)));
         String role = "ROLE_STUDENT";
