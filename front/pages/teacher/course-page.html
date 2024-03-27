@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abyssinica+SIL">
     <link rel="stylesheet" href="../../assets/styles/teach-cou.css">
-    <title>Admin Page</title>
+    <title>Teacher Course Page</title>
 </head>
 <body>
     <header class="header">
@@ -22,6 +22,10 @@
                         <div class="admin-info">
                             <p>LAST LOGIN DATE:</p> 
                             <p id="login-date">08 FEB 2024</p>
+                        </div>
+                        <div class="admin-info">
+                            <p>STATUS:</p> 
+                            <p id="statusName">TEACHER</p>
                         </div>
                     </div>
                     <div class="icon" style="background-image: url(../../assets/images/icon.png);">
@@ -53,21 +57,47 @@
                     <div class="courses">
                         <div class="course">
                             <div class="course-name">
-                                <p><span class="code">CSS 228.01P</span> - Advanced ALGORITHM</p>
+                                <p><span class="code">CSS 228.01P</span> - ADVANCED ALGORITHM</p>
                             </div>
                             <form action="">
-                                <button class="btn">START</button>
-                                <button class="btn">END</button>
+                                <button id="startLessonButton" style="background-color: #F3C997" class="btn">START</button>
+                                <button id="endLessonButton" style="background-color: #FED66D;" class="btn">END</button>
                             </form>
                         </div>
                     </div>
-                    <div class="notif" style="display: none;">
-                        <p style="color: aqua;">LESSON HAS BEGUN!</p>
-                        <p style="color: green;">LESSON IS OVER!</p>
+                    <div>
+                        <p class="start" style="display: none; background-color: green;">LESSON HAS BEGUN!</p>
+                        <p class="end" style="display: none; background-color: red;">LESSON IS OVER!</p>
                     </div>
                 </div>
             </div>
         </div>
     </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const startLessonButton = document.getElementById('startLessonButton');
+            const endLessonButton = document.getElementById('endLessonButton');
+            const startMessage = document.querySelector('.start');
+            const endMessage = document.querySelector('.end');
+
+            startLessonButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                startMessage.style.display = 'block';
+                endMessage.style.display = 'none';
+            });
+
+            setTimeout(() => {
+                startMessage.style.display = 'none';}, 3000000);
+
+            endLessonButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                startMessage.style.display = 'none';
+                endMessage.style.display = 'block'; 
+            });
+
+            setTimeout(() => {
+                endMessage.style.display = 'none';}, 600000);
+        });
+    </script>
 </body>
 </html>
