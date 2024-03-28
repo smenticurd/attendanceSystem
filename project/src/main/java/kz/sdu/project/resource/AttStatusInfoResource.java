@@ -37,7 +37,7 @@ public class AttStatusInfoResource {
     }
     
     @PostMapping("/bySection")
-    public ResponseEntity<Map<String, List<AttendanceStatusDetailDto>>> getAttendanceStatusBySection(@RequestBody @Valid RequestBody2DTO requestBodyDTO) {
+    public ResponseEntity<List<AttendanceStatusDetailDto>> getAttendanceStatusBySection(@RequestBody @Valid RequestBody2DTO requestBodyDTO) {
         log.info("Process Getting AttendanceStatusAllBySection by {}" , requestBodyDTO);
         return ResponseEntity.ok(studentAttStatusService.attStatusBySection(requestBodyDTO));
     }
