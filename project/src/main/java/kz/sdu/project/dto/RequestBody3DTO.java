@@ -8,9 +8,6 @@ import java.time.LocalDateTime;
 
 @Data
 public class RequestBody3DTO {
-    @NotBlank(message = "Teacher login shouldn't be empty...")
-    private String login;
     @NotBlank(message = "SectionName shouldn't be empty...")
     private String sectionName;
-
 }

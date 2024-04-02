@@ -7,6 +7,7 @@ import kz.sdu.project.dto.RequestBodyDTO;
 import kz.sdu.project.entity.*;
 import kz.sdu.project.ex_handler.EntityNotFoundException;
 import kz.sdu.project.utils.CompletedAttributeValidation;
+import kz.sdu.project.utils.SecurityUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -30,13 +31,10 @@ public class StudentAttStatusService {
     private final SectionService sectionService;
     private final CompletedAttributeValidation val;
 
-    public Map<String, AttendanceStatusDto> attStatusByAll(RequestBodyDTO requestBodyDTO) {
-
-        String login = requestBodyDTO.getLogin();
-        Person student = personService.findByLoginAndLoadRoles(login)
-                .orElseThrow(() -> new UsernameNotFoundException(String.format("Student with username %s not found", login)));
+    public Map<String, AttendanceStatusDto> attStatusByAll() {
+        Person student = SecurityUtils.getCurrentPerson();
         if (!val.isStudent(student))
-            throw new EntityNotFoundException(String.format("User is not student with login %s", login));
+            throw new EntityNotFoundException("User is not student with login");
 
         List<AttendanceInfo> attList = attendanceInfoService.findByPersonId(student.getId());
 
@@ -100,14 +98,11 @@ public class StudentAttStatusService {
     }
 
 
-    public List<AttendanceStatusDetailDto> attStatusBySection(RequestBody2DTO requestBodyDTO) {
-
-        String login = requestBodyDTO.getLogin();
-        Person student = personService.findByLoginAndLoadRoles(login)
-                .orElseThrow(() -> new UsernameNotFoundException(String.format("Student with username %s not found", login)));
+    public List<AttendanceStatusDetailDto> attStatusBySection(String sectionNames) {
+        Person student = SecurityUtils.getCurrentPerson();
         if (!val.isStudent(student))
-            throw new EntityNotFoundException(String.format("User is not student with login %s", login));
-        String[] sections = requestBodyDTO.getSectionNames().split(SEPARATE_BY_COMMA);
+            throw new EntityNotFoundException("User is not student with login");
+        String[] sections = sectionNames.split(SEPARATE_BY_COMMA);
 
         return returnSectionAtt(student,sections);
     }
